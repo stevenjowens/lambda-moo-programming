@@ -97,28 +97,28 @@ is really
 
 There are a great many such useful properties on #0 besides the utils, but here are the utils defined on LambdaMOO's #0 as of this writing:
 
-    * #0.building_utils
-    * #0.byte_quota_utils
-    * #0.code_utils
-    * #0.command_utils
-    * #0.convert_utils
-    * #0.gender_utils
-    * #0.generic_utils
-    * #0.list_utils
-    * #0.lock_utils
-    * #0.match_utils
-    * #0.math_utils
-    * #0.matrix_utils
-    * #0.object_quota_utils
-    * #0.object_utils
-    * #0.perm_utils
-    * #0.quota_utils
-    * #0.seq_utils
-    * #0.set_utils
-    * #0.string_utils
-    * #0.time_utils
-    * #0.trig_utils
-    * #0.wiz_utils
+* #0.building_utils
+* #0.byte_quota_utils
+* #0.code_utils
+* #0.command_utils
+* #0.convert_utils
+* #0.gender_utils
+* #0.generic_utils
+* #0.list_utils
+* #0.lock_utils
+* #0.match_utils
+* #0.math_utils
+* #0.matrix_utils
+* #0.object_quota_utils
+* #0.object_utils
+* #0.perm_utils
+* #0.quota_utils
+* #0.seq_utils
+* #0.set_utils
+* #0.string_utils
+* #0.time_utils
+* #0.trig_utils
+* #0.wiz_utils
 
 There are also several verbs defined directly on #0, but most of them are system related and are not particularly relevant to your average moo coder.
 
@@ -150,13 +150,14 @@ Here's a more realistic example of that:
 
 ```roomtitle = player.location.title();```
 
-```name = player.location.name ;```
+```roomname = player.location.name ;```
 
 ### Case Insensitivity
 
 Moo, unlike unix, linux, etc, doesn't care whether letters are upper case or lower case. This seems to be generally true for variable names, object names, verb names, etc. I guess Pavel (or Ghond before him) just didn't want to deal with an endless number of users getting their capitalization mixed up and screaming "This is broken!".
 
-```>;;foo=5; me:tell(Foo)
+```
+>;;foo=5; me:tell(Foo)
 5
 => 0
 [used 154 ticks, 0 seconds.]
@@ -168,7 +169,8 @@ Moo, unlike unix, linux, etc, doesn't care whether letters are upper case or low
 5
 => 0
 [used 154 ticks, 0 seconds.]
->```
+>
+```
 
 ### Data Types
 
@@ -221,16 +223,19 @@ You define a list by enclosing a comma-separated series of elements in curly bra
 
 ```bar = {1, 2, 3} ;```
 
+Note the elements don't all have to be the same type, you can mix and match types:
+
 ```baz = {1, "two", 3} ;```
 
-You reference a specific element in a list by appending a number in [square brackets] to the variable name. The number is called an index, and accessing a list element this way is called indexing:
+You reference a specific element in a list by appending a number in [square brackets] to the variable name. The number is called an index, and accessing a list element this way is called indexing.  This line will set the variable's value to the second element, i.e. the letter "b":
 
 ```xyzzy = foo[2] ;```
 
 The index of the very first item in the list is 1, as you would expect if you're a normal human being:
 
 ```foo = {"a", "b", "c"} ;
-player:tell("The element at index 1 is: ", foo[1])```
+player:tell("The element at index 1 is: ", foo[1])
+```
 
 The player sees:
 
@@ -242,7 +247,7 @@ Note that lists can contain any sort of data, including other lists:
 
 ```foo = {"a", b", c", {1, 2, 3} } ;```
 
-Nested lists can get quite complicated. One particularly common form of nested lists is called associative lists, or alists for short, and the $list_utils have a number of special verbs for dealing wtih alists. Other languages usually use what's called a dictionary type (often "dict" for short) or "hashtable" or "map" to serve the same purpose.
+Nested lists can get quite complicated. One particularly common form of nested lists is called associative lists, or alists for short, and the $list_utils have a number of special verbs for dealing with alists. Other languages usually use what's called a dictionary type (often "dict" for short) or "hashtable" or "map" to serve the same purpose.
 
 **Note:** _hashtable as a name describes how it's implemented; map as a name describes the act of using one value to look up another value. I'm explaining this mainly because the terms sometimes come up in programming discussions, so it's useful to be familiar with them._
 
@@ -279,7 +284,8 @@ baz will now contain {1, 2, 3, 4, 5}
 While you only use { and } when you're creating a list, and @ when you expand a list, the "moo way" is that you do a whole lot of list creation and expansion. For example the "right" way to append to a list is:
 
 ```baz = {1, 2, 3, 4, 5};
-baz = {@baz, 6} ;```
+baz = {@baz, 6} ;
+```
 
 baz will now contain {1, 2, 3, 4, 5, 6}
 
@@ -287,7 +293,8 @@ What you are literally doing here is creating a new list that contains both the 
 
 ```baz = {1, 2, 3, 4, 5};
 bat = {@baz, 6} ;
-baz = bat```
+baz = bat
+```
 
 bat will now contain {1, 2, 3, 4, 5, 6} and
 
@@ -302,14 +309,16 @@ Using the shorter version may seem a little less clear at first, but you end up 
 You can use the range operator (..) in a list index to indicate a range of elements. So for example if you wanted to get the second, third and fourth element of a list, you'd index mixedlist[2..4].
 
 ```foo = {"a", "b", "c", "d", "e", "f"}  ;
-bar = foo[2..4] ;```
+bar = foo[2..4] ;
+```
 
 bar will now contain {"b", "c", "d"}.
 
 MOO list indexes and ranges can't do the things that fancier languages can, they have to be just a single number [4] or two numbers separated by two periods [2..4]. You have to do any fancy math yourself. For example, if you want to get from element 3 to the end of the list, you have to use the built-in function length() to get the length of the list:
 
 ```foo = {"a", "b", "c", "d", "e", "f"}  ;
-bar = foo[2..length(foo)] ;```
+bar = foo[2..length(foo)] ;
+```
 
 You'll also want to take a close look at the $list_utils functions ("help $list_utils").
 
@@ -437,7 +446,11 @@ When somebody types an interactive moo command, like "look at objectname", which
 
 Command-line arguments consist of three elements, (after the verbname) e.g.:
 
-*   verbname any in this*   verbname this to any*   verbname any in any*   verbname none none none*   verbname any any any
+*   verbname any in this
+*   verbname this to any
+*   verbname any in any
+*   verbname none none none
+*   verbname any any any
 
 And so forth.
 
@@ -522,57 +535,44 @@ Let's jump right in and show some examples of if, while, for, suspend and fork. 
 Use "if" for conditionals - test some condition, and either carry out the set of commands in the block or not.
 
 ```
-
-* * *
-
 if (some expression that evaluates to 0 for false or not-0 for true)
   "do something" ;
-endif```
+endif
+```
 
 You can also use if/else for when you want have a set of instructions for when the if test results in not-true.
 
 ```
-
-* * *
-
 if (some expression that evaluates to 0 or not-0)
   "it was not-zero, do something" ;
 else
   "it was zero, do something else" ;
-endif```
+endif
+```
 
 The while and for flow controls are for looping, i.e. doing something one or more times:
 
 ```
-
-* * *
-
 while (some expression that evaluates to 0 or not-0)
   "do something repetitive";
-endwhile```
-
+endwhile
 ```
 
-* * *
-
+```
 for foo in (some expression that produces a list)
   "do something with foo" ;
-endfor```
+endfor
+```
 
 The built-in function suspend() is for pausing.
 
 ```
-
-* * *
-
-suspend(some number of seconds you want the task to pause) ;```
+suspend(some number of seconds you want the task to pause) ;
+```
 
 The built-in function fork() is for starting a new, separate task that continues on and does its own thing.
 
 ```
-
-* * *
-
 fork (somenumber of seconds) 
   "do something somenumber of seconds later, in a separate task" ;
 endfork
@@ -581,10 +581,12 @@ endfork
 
 Sometimes that separate task can run for a long, long time, in which case it might be handy to have the taskid:
 
-```fork taskidvariable (somenumber of seconds) 
+```
+fork taskidvariable (somenumber of seconds) 
   "do something somenumber of seconds later, in a separate task" ;
 endfork
-"immediately after scheduling the fork, continue on with the rest of the program" ;```
+"immediately after scheduling the fork, continue on with the rest of the program" ;`
+```
 
 The taskidvariable is optional. If it's there, it gets filled with the taskid for the task that the fork creates. Typically the next thing you do is store the taskidvariable's contents in some property, so you can later on use it to check on, or if necessary kill, the task.
 
@@ -638,7 +640,8 @@ A list slice reference...
 #1579
 #1708
 => 0
-[used 4001 ticks, 0 seconds.]```
+[used 4001 ticks, 0 seconds.]
+```
 
 Or even just a range...
 
@@ -656,17 +659,17 @@ Or even just a range...
 => 0
 [used 3776 ticks, 0 seconds.]
 ```
-
-**suspend**
+#### suspend
 
 Suspend is pretty straight-forward; it just pauses the execution for however many seconds.
 
 ```>;;suspend(20) ; me:tell("boo!") ;
 ...20 seconds pass...
 boo!
-=> 0```
+=> 0
+```
 
-**fork**
+#### fork
 
 Fork takes a little more discussion. Fork fires off a separate task. In this example I used all of the optional arguments. The somenumber of seconds part delays the new task from starting until some number of seconds in the future. Meanwhile, the rest of the verb continues on without delay.
 
@@ -715,7 +718,12 @@ Use the toliteral() function to convert it to a string you can print out (especi
 
 Use the various tofoo() functions to convert back and forth:
 
-*   toobj() (converts a string like "#1449" into an objectnumber reference variable)*   toint() or tonum() (converts "1" to the value 1; originally ints were the only numerics in moo)*   tostr() (converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449")*   tofloat() (converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0)*   toliteral() (converts whatever value to a print-friendly value)*   typeof() (returns an int value corresponding to the type of the value you passed in)
+*   toobj() (converts a string like "#1449" into an objectnumber reference variable)
+*   toint() or tonum() (converts "1" to the value 1; originally ints were the only numerics in moo)
+*   tostr() (converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449")
+*   tofloat() (converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0)
+*   toliteral() (converts whatever value to a print-friendly value)
+*   typeof() (returns an int value corresponding to the type of the value you passed in)
 
 Note that typeof returns an int value, but there are several standard values that are defined in moocode. INT is 0, OBJ is 1, STR is 2, ERR is 3, etc. See "help typeof" for more info. You could just check to see if the return value is 0 or 1, etc, but it's a lot smarter to use those predefined variables. That way, when you look at a bunch of code you wrote in a drunken binge, you'll have some vague idea wtf you were intending to do.
 
@@ -806,7 +814,7 @@ The two examples that come to mind are also probably the two most common cases a
 
 Sight/sound is pretty straight-forward. I lump them together because really, they're just lines of text that are being sent to the player's network connection.
 
-Everything has a :tell() verb, starting with #1:tell(), which just does nothing. This makes it very convenient to code verbs that emit text and just send it to all objects in the room.
+Everything has a :tell() verb, starting with #1:tell(), which just does nothing. This makes it very convenient to code verbs that emit text, you just invoke the :tell(sometext) verb on all objects in the room.
 
 The player object has a special verb, player:notify(), that sends a line of text to the player's network connection. player:notify() is so special that nobody actually invokes it directly; it's almost only ever used by player:tell() (and occasionally by player:tell_lines(), see note below). In fact, player:notify() has a special permission check in its code to prevent it from being called from anything else but verbs on the player.
 
@@ -880,16 +888,18 @@ A program is a huge, complex list of step-by-step instructions that the computer
 
 Okay, so let's give you a short example of what a bit of program might look like:
 
-    player:tell("Hello.") ;
-    somenumber = 2 ;
-    anothernumber = 3 ; 
-    theothernumber ;
-    theothernumber = somenumber + anothernumber;
-    message = "the other number is " + tostr(theothernumber) ;
-    player:tell(message) ;
-    theothernumber = theothernumber + 1 ;
-    message2  = "the other number is now " + tostr(theothernumber) ;
-    player:tell(message2) ;
+```
+player:tell("Hello.") ;
+somenumber = 2 ;
+anothernumber = 3 ; 
+theothernumber ;
+theothernumber = somenumber + anothernumber;
+message = "the other number is " + tostr(theothernumber) ;
+player:tell(message) ;
+theothernumber = theothernumber + 1 ;
+message2  = "the other number is now " + tostr(theothernumber) ;
+player:tell(message2) ;
+```
 
 This sort of human-readable stuff that makes up the program is usually called the _source code_, not an important detail but if you're curious as to why [read this](#CompiledInterpreted).
 
@@ -941,7 +951,9 @@ Another exception is that the plus sign "+" can be used to add two strings of ch
 
 Note that in moocode you can only add strings to strings and numbers to numbers. If you want to concatenate a string to a number, you have to use the built-in tostr() function, like this:
 
-    message = "The number is:  " + tostr(somenumber) ;
+```
+message = "The number is:  " + tostr(somenumber) ;
+```
 
 Many programming languages have increment "++" and decrement "--", but moocode does not. foo++ adds 1 to foo, foo-- subtracts one from foo. A lot of languages use this to make it more succinct to loop through a list, adding one at a time, but moocode doesn't need it as much because it has "for x in y".
 
@@ -949,19 +961,25 @@ Many programming languages have increment "++" and decrement "--", but moocode d
 
 The equals sign is used for _assignment_, meaning, storing a value into a variable. If you see:
 
-`a = 5`
+```
+a = 5
+```
 
 That means "store the value 5 in variable a." When programmers write this out, they usually say something like "let a equal five" or "a is assigned the value five".
 
 If you try to put a literal on the left side, like this:
 
-`5 = b`
+```
+5 = b
+```
 
 ...the compiler yells at you. This turns out to be a very good thing, we'll talk about it in a moment.
 
 You can also assign one variable to another, which means that the value in the second variable gets copied to the first variable as well:
 
-`a = b`
+```
+a = b
+```
 
 **Note**: A lot of programming languages require you to be very formal about defining variables ahead of time, "initializing" them (assigning the initial value), etc. Moocode is all hippy and free love, so you can pretty much create a new variable whenever you want, simply by assigning a value to a variable name. There's a downside to this; if you try to assign a different value to an existing variable but mistype the variable name, moo will happily create the new variable and let things keep rolling on... and you'll have no idea WTF happened when the wrong value causes problems somewhere entirely else in your code.
 
@@ -973,17 +991,23 @@ Most people first learn about the equals sign for comparison, like "is a equal t
 
 You use a double-equals sign `==` to do comparison. You write "is a equal to b?" like this:
 
-`a == b`
+```
+a == b
+```
 
 It is very, very easy, even for an experienced programmer, to slip and write this instead:
 
-`a = b`
+```
+a = b
+```
 
 When this does happen, it can lead to very weird behavior, which is frustratingly hard to track down, and when you finally find it, you feel really stupid. Bear in mind, it's usually buried among pages and pages of other code, so it's really easy to look at it and see what you're expecting to see, not the error.
 
 One really good rule of thumb that I picked up somewhere is "literal on the left". If you're doing a comparison with a literal value, put the literal value on the left side. For example:
 
-`5 == a`
+```
+5 == a
+```
 
 This is good because it forces you to think in a slightly different way about it, and because the compiler will yell if you slip and write `5 = a`.
 
@@ -1013,25 +1037,33 @@ The characters "{" and "}", most programmers call curly brackets but appear to h
 
 What MOO actually uses curly brackets for is defining lists of things. A list is pretty much just what it says, a sequential collection of elements. If you're familiar with arrays, think of a list as a smart array, that grows and shrinks as necessary. Here's an example:
 
-    stringslist = {"one", "two", "three"};
+```
+stringslist = {"one", "two", "three"};
+```
 
 Here's another example:
 
-    numberslist = {1, 2, 3};
+```
+numberslist = {1, 2, 3};
+```
 
 A list can contain mixed types of elements, for example:
 
-    mixedlist = {1, "two", 3};
+```
+mixedlist = {1, "two", 3};
+```
 
 Most languages use square brackets "[" and "]" to _index_ into an array or list, for example if you one the "two" from the mixedlist example, you'd use:
 
-    twostring = mixedlist[2];
+```
+twostring = mixedlist[2];
+```
 
 One exception to all this left-right nonsense is the angle brackets, "<" and ">". Moocode, like most languages, only uses angle brackets for mathematical stuff, like greater-than or less-than, etc.
 
 Qouble-quotes like " usually have to be in a matched set. Pretty much no programming language uses "smart quotes", where the quotes are angled opposite each other. When programmers specifically want to say not-smart-quotes they usually say "straight quotes".
 
-Some programming languages have special meanings for the single-quote ' and back-tick ` characters. Moocode did not at first, but have since used them for catching errors, see the section "Catching Errors in Expressions" in the LambdaMOO Programmer's Tutorial.
+Some programming languages have special meanings for the single-quote ' and back-tick \` characters. Moocode did not at first, but have since used them for catching errors, see the section "Catching Errors in Expressions" in the LambdaMOO Programmer's Tutorial.
 
 #### Multitasking
 
