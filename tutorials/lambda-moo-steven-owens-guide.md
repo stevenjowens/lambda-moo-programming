@@ -41,7 +41,7 @@ I'm going to assume you have a basic familiarity with moo concepts, but just to 
 
 You have the server and the database (colloquially "the db"). The server is the foundation; it loads and runs the database, which defines the objects and their properties and verbs. Much of the code that makes the up the basic moo-ishness of things is implemented in the db, in moocode.
 
-**Note:** _Most people tend to associate the term "database" with a "relational database", and most relational database programs tend to keep most of their data in disk storage. The purely technical meaning of "database" is "an organized collection of information." LambdaMOO's database is not relational, it is an object database, and it is kept entirely in-memory. The only reason I'm pointing this out is to head off any chance of you confusing the moo database for a relational database._
+**Note:** _Most people tend to associate the term "database" with a "relational database", and most relational database programs tend to keep most of their data in disk storage as tables containing rows of columns and you use the SQL language to look stuff up. But the purely technical meaning of "database" is "an organized collection of information." LambdaMOO's database is not relational, it is an object database, and it is kept entirely in-memory. The only reason I'm pointing this out is to head off any chance of you confusing the moo database for a relational database._
 
 #### Objects, Verbs and Properties
 
@@ -57,6 +57,14 @@ Verbs are code stored on the object and invoked in code via the ":" syntax, for 
 
 ```somevariable = object:verbname() ;```
 
+##### Statements and Semi-Colons
+
+Notice that each example above ends with a semi-colon character, ";".  In writing we talk about sentences, which end with a period ".", but in programmign we talk about statements, and in moocode, as in many popular programming languages, statements end with a semi-colon.  I've tried to make every moocode snippet here a valid, runnable example, but I might slip up and miss a semi-colon.  
+
+Also note that not _every_ line in moocode needs a semi-colon.  In particulary the flow control (if/endif) and looping keywords (while/endwhile, for/endfor) don't.
+
+Finally, moocode doesn't care whether or not there's a space before the semi-colon.  This is a stylistic choice, I tend to prefer having the space, other programmers don't. 
+
 #### Object Oriented
 
 MOO stands for "Mud, Object-Oriented". If you don't understand what "object oriented" means, it's an approach for organizing the code and data in a system.
@@ -67,19 +75,19 @@ In the MOO world, the object is defined by example. You create an object instanc
 
 If object-oriented programming is new to you, here's a brief explanation:
 
-The simplest approach is procedural - a sequential series of instructions. Procedural languages have concepts for organizing the code, like subroutines (also called functions or methods, depending on what programming language you're talking about).
+The simplest approach is procedural - a sequential series of instructions. Procedural languages have concepts for organizing the code in repeatable chunks, which we call like subroutines (also called functions or methods, depending on what programming language you're talking about).
 
-Object-oriented languages usually have their own version of subroutines (typically they're called methods, or in MOOcode, verbs), but they also have the concept of organizing groups of subroutines (methods, verbs) as well as data (instance variables, or properties). This conceptual grouping is what we call an "object".
+Object-oriented languages usually have their own version of subroutines (typically they're called methods, or in MOOcode, verbs), but they also have the concept of organizing groups of subroutines (methods, verbs) as well as data (instance variables, or properties). This conceptual grouping is what we call an "object".  The general idea is that, most of the time, only the code in the object directly messes with the data inside the object.  Other code that wants to do something will run ("aka "call" or "invoke") the verbs on the object.  It turns out this is a helpful way to organize programs as they get larger.
 
 #### Core Db, MinimalCore and LambdaCore
 
-The "core db" is the infrastructure that most moos start from, the initial set of objects, verbs and properties that provide handy utilities and predefined types of objects. These are all that exists when the MOO is first started up, until the users start adding custom code. For example, player objects, room objects, exit objects and thing objects are all part of the moo core db.
+As I said above, the server runs the code in the db (database).  The "core db" is the infrastructure that most moos start from, the initial set of objects, verbs and properties that provide handy utilities and predefined types of objects. These are all that exists when the MOO is first started up, until the users start adding custom code. For example, player objects, room objects, exit objects and thing objects are all part of the moo core db.
 
-There are, generally speaking, two different versions of the core db in use. The minimal db and the lambdacore. The minimaldb is just about exactly what the name suggests, just the bare bones minimum of objects to get your MOO up and running. The lambdacore has a whole bunch of additional objects and features that the lambdamoo wizards found useful.
+There are, generally speaking, two different versions of the core db available. The minimal db and the lambdacore. The minimaldb is just about exactly what the name suggests, just the bare bones minimum of objects to get your MOO up and running. The lambdacore has a whole bunch of additional objects and features that the lambdamoo wizards found useful.  These days there may well be other dbs that other people have come up with for their own flavor of MOO.
 
 #### Built-in Functions, Utils and the System Object
 
-The moo language has a number of predefined functions, which are generally referred to as functions or sometimes as "built-in functions" or "built-ins" for short.
+The moocode language has a number of predefined functions, which are generally referred to as functions or sometimes as "built-in functions" or "built-ins" for short.
 
 Most built-ins are documented in MOO's online help Sometimes there's more than one help entry that matches a built-in function name, so as a rule of thumb append an empty parentheses to the functionname() when you use the help command. For example "help tonum()" will get you help on the built-in function named tonum (see "Data Types", below).
 
@@ -132,40 +140,44 @@ There's actually a root property, $nothing, that contains the value #-1, but I'm
 
 ### Verb Invocation and Property Access
 
-In code you invoke verbs with the ":" operator.
+In a programming language, the basic building blocks of the program are called keywords and operators.  Keywords are words that have special meaning, operators are keywords that you use with other elements.  Operators very often use punctuation rather than a word.  Almost all programming languages have a set of operators for mathematical operations like "+" for adding, "-" for subtracting, etc.  But programming languages also use operators for doing more programmer-y stuff, like using the the equals sign for assignment (the code "foo = 1" means "assign to the variable named foo the value 1"). 
+
+In moocode you invoke verbs with the ":" operator.
 
 ```foo = object:methodname() ;```
 
-In code you reference properties to get the values in them with the "." operator.
+In moocode you reference properties to get the values in them with the "." operator.
 
 ```foo = object.propertyname ;```
 
 You can generally chain properties for verb or property reference, assuming that each link in the chain is a valid object reference, e.g.:
 
-```title = player.foo.bar:title();```
+```title = player.foo.bar:title() ;```
 
 ```name = player.foo.bar.name ;```
 
 Here's a more realistic example of that:
 
-```roomtitle = player.location.title();```
+```roomtitle = player.location.title() ;```
 
 ```name = player.location.name ;```
+
+Note, the period (also sometimes called a "dot") is used in at least three different ways that I can think of offhand.  It's used for properties, as described here, it's also used for decimal point numbers (also called floating numbers, see below) and a double period ".." is used for list ranges (see below).
 
 ### Case Insensitivity
 
 Moo, unlike unix, linux, etc, doesn't care whether letters are upper case or lower case. This seems to be generally true for variable names, object names, verb names, etc. I guess Pavel (or Ghond before him) just didn't want to deal with an endless number of users getting their capitalization mixed up and screaming "This is broken!".
 
 ```
->;;foo=5; me:tell(Foo)
+>;;foo=5; me:tell(Foo);
 5
 => 0
 [used 154 ticks, 0 seconds.]
->;;foo=5; me:tell(FOO)
+>;;foo=5; me:tell(FOO);
 5
 => 0
 [used 154 ticks, 0 seconds.]
->;;foo=5; me:tell(fOO)
+>;;foo=5; me:tell(fOO);
 5
 => 0
 [used 154 ticks, 0 seconds.]
@@ -181,7 +193,7 @@ MOO has four data types:
 *   lists of elements
 *   moo object numbers (sometimes called objnums).
 
-Numbers default to integers. Integers is a math term commonly used in programming languages, it means no fractions or decimal places. If you divide 1/2 in MOO, you get 0\. Surprisingly, you get get a heck of a lot done with just integers.
+Numbers default to integers. Integers is a math term commonly used in programming languages, it means numbers without fractions or decimal places. If you divide 1/2 in MOO, you get 0\. Surprisingly, you can get a heck of a lot done with just integers.
 
 Originally MOO only did integers, but these days MOO also does floats, aka floating point numbers, i.e. numbers with a decimal point. That's how MOO knows that a number is a float, by the presence of a decimal point:
 
@@ -198,7 +210,8 @@ You can't mix integers and floats, so in MOOcode you need to either include the 
 ```
 1/2.0
 #-1:Input to EVAL, line 3:  Type mismatch
-... called from built-in function eval()
+
+. called from built-in function eval()
 ... called from #217:eval_cmd_string (this == #1449), line 19
 ... called from #217:eval*-d (this == #1449), line 13
 (End of traceback)
@@ -208,7 +221,7 @@ You can use two periods to indicate a range of values, i.e. 1..10 means 1, 2, 3,
 
 Strings is just programmerspeak for "text", i.e. "a string of characters". The term dates all the way back to 1959 and the really early computer languages. Moo knows something is text because it's surrounded by double-quotes:
 
-```astringvariable = "some text"```
+```astringvariable = "some text" ;```
 
 Lists are really fancy and get their own section (below).
 
@@ -218,7 +231,7 @@ Object numbers are references to objects in the MOO database. Moo recognizes obj
 
 ### Lists
 
-You define a list by enclosing a comma-separated series of elements in curly braces
+You define a list by enclosing a comma-separated series of elements in {curly braces}:
 
 ```foo = {"a", "b", "c"} ;```
 
@@ -230,18 +243,18 @@ You reference a specific element in a list by appending a number in [square brac
 
 ```xyzzy = foo[2] ;```
 
-The index of the very first item in the list is 1, as you would expect if you're a normal human being:
+If you're a normal human being, you would expect the index of the very first item in the list is 1, which is indeed how it works in moocode (though not in most programming languages):
 
 ```
 foo = {"a", "b", "c"} ;
-player:tell("The element at index 1 is: ", foo[1])
+player:tell("The element at index 1 is: ", foo[1]);
 ```
 
 The player sees:
 
 ```The element at index 1 is: a```
 
-If you're a programmer rather than a normal human being, you expect the index of the very first element to be 0, for technical reasons which I will skip for now. Getting used to this is usually a major early stumbling block for non-programmers, which is probably why moo's inventors (Pavel and Ghond) decided to go with 1 instead. But if you're already a programmer, you're going to expect it to be zero, which is why I'm pointing this out.
+If you're a programmer rather than a normal human being, you expect the index of the very first element to be 0, for technical reasons which I will skip for now. Getting used to this is usually a major early stumbling block for non-programmers, which is probably why moo's inventors (Pavel and Ghond) decided to go with 1 instead. But if you're already a programmer, you're going to expect it lists to be zero indexed, which is why I'm pointing this out.
 
 Note that lists can contain any sort of data, including other lists:
 
@@ -251,15 +264,15 @@ Nested lists can get quite complicated. One particularly common form of nested l
 
 **Note:** _hashtable as a name describes how it's implemented; map as a name describes the act of using one value to look up another value. I'm explaining this mainly because the terms sometimes come up in programming discussions, so it's useful to be familiar with them._
 
-```somealist = {{1, "January"}, {2, "February"}, {3, "March"}}```
+```somealist = {{1, "January"}, {2, "February"}, {3, "March"}} ;```
 
 Note that the above isn't really a good example of an alist, since you could just make a list of month names and use the position (index) of each month name instead of needing use the associative list utility functions to look them up. Here's a more realistic example, where you're storing players high scores in some in-moo game, using their object numbers as the key:
 
-```somealist = {{#1449, 65050}, {#68, 743634}, {#107439, 34544}, {#93202, 235423}, {#94285, 10025}}```
+```somealist = {{#1449, 65050}, {#68, 743634}, {#107439, 34544}, {#93202, 235423}, {#94285, 10025}} ;```
 
 Most of the examples above are lists with elements that are all the same data type, but lists can contain mixed data types:
 
-```{"foo", 1, "bar", 1.5, #-1}```
+```{"foo", 1, "bar", 1.5, #-1} ;```
 
 Sometimes you'll have a list of mixed data types like above, but of course the order of the data types is something your code has to keep track of. For example, you might have a message system where each list contains the time received as an integer, the person the message was from as an objectnumber, and the message text as a string. And then you'd store all of your {time, personnumber, messagetext} lists in another big list.
 
@@ -286,18 +299,18 @@ baz will now contain {1, 2, 3, 4, 5}
 While you only use { and } when you're creating a list, and @ when you expand a list, the "moo way" is that you do a whole lot of list creation and expansion. For example the "right" way to append to a list is:
 
 ```
-baz = {1, 2, 3, 4, 5};
+baz = {1, 2, 3, 4, 5} ;
 baz = {@baz, 6} ;
 ```
 
 baz will now contain {1, 2, 3, 4, 5, 6}
 
-What you are literally doing here is creating a new list that contains both the contents of the old list, baz, and the new value, 6, and then storing the reference to that new list in the variable name that baz, which previously used to store the reference to the old list. In a more longer form, it might look like this:
+What you are literally doing here is actually two things, first creating a new list that contains both the contents of the old list, baz, and the new value, 6, and second then storing the reference to that new list in the variable name that baz, which previously used to store the reference to the old list. In a more longer form, it might look like this:
 
 ```
-baz = {1, 2, 3, 4, 5};
+baz = {1, 2, 3, 4, 5} ;
 bat = {@baz, 6} ;
-baz = bat
+baz = bat ;
 ```
 
 bat will now contain {1, 2, 3, 4, 5, 6} and
@@ -310,16 +323,24 @@ Using the shorter version may seem a little less clear at first, but you end up 
 
 **Note:** _Sometimes it may make the code more clear if you be more explicit, as in the longer version. Sometimes making it shorter makes that bit a little less clear but makes it easier to understand the rest of the code. That's a judgement call that you'll learn to make as you get better at programming. In fact a great majority of programming is making that kind of judgement call._
 
-You can use the range operator (..) in a list index to indicate a range of elements. So for example if you wanted to get the second, third and fourth element of a list, you'd index mixedlist[2..4].
+You can use the range operator, which is a double-period, ".." in a list index to indicate a range of elements. So for example if you wanted to get the elements from 2 to 4 from a list, you'd index mixedlist[2..4].
 
 ```
-foo = {"a", "b", "c", "d", "e", "f"}  ;
+foo = {"a", "b", "c", "d", "e", "f"} ;
 bar = foo[2..4] ;
 ```
 
 bar will now contain {"b", "c", "d"}.
 
 MOO list indexes and ranges can't do the things that fancier languages can, they have to be just a single number [4] or two numbers separated by two periods [2..4]. You have to do any fancy math yourself. For example, if you want to get from element 3 to the end of the list, you have to use the built-in function length() to get the length of the list:
+
+```
+foo = {"a", "b", "c", "d", "e", "f"}  ;
+endindex = length(foo);
+bar = foo[2..endindex] ;
+```
+
+You can run functions from inside the list index, so you can shorten the above to:
 
 ```
 foo = {"a", "b", "c", "d", "e", "f"}  ;
@@ -332,14 +353,20 @@ You'll also want to take a close look at the $list_utils functions ("help $list_
 
 Eval is a really, really handy command that basically allows you to write little one-line MOOCode programs and execute them. It works just the same as say or emote, e.g.
 
-Enter: "foo<enter>  
-See: You say, "Foo"
+Enter: 
+```"foo<enter>```
+See: 
+```You say, "Foo"```
 
-Enter: :grins toothily<enter>  
-See: Puff grins toothily.
+Enter: 
+```:grins toothily<enter>```
+See: 
+```Puff grins toothily.```
 
-Enter: ;1+1<enter>  
-See: =>2
+Enter:
+```;1+1<enter>```
+See: 
+```=>2```
 
 One minor but important distinction is that only you see the results of your eval.
 
@@ -359,18 +386,22 @@ If it's not set, type the following:
 
 Once you execute this command, you'll be able to use the eval shortcuts "me" for your player object, and "here" for your player object's current location. This turns out to be incredibly handy.
 
-There's also a nifty little property, player.eval_ticks. See the section below "Threads, Ticks and Tasks" for more on that.
+There's also a nifty little property, player.eval_ticks, which you can use to see how much computing resources an command uses.  See the section below "Threads, Ticks and Tasks" for more on that.
 
-I never really got in the habit of using multi-statement evals. Generally I find when I hit that point that it's simpler/easier to just create a real verb to mess with. "Help eval" will explain how it works, but here's the basics:
+You can do multi-statement evals but I never really got in the habit of using them. Generally I find when I hit that point that it's simpler/easier to just create a real verb to mess with. "Help eval" will explain how it works, but here's the basics:
 
 You start a multi-line eval with a double-semicolon, i.e.:
 
-```;;foo = {1, 2, 3}; bar = {4, 5};  for x in ({@foo, @bar}) me:tell(x) ; endfor<enter>
+```
+>;;foo = {1, 2, 3}; bar = {4, 5};  for x in ({@foo, @bar}) me:tell(x) ; endfor<enter>
 ```
 
-Also note that multi-line evals don't automatically print the return value of the statement, so you need to explicitly print whatever you want to see in the body of your eval statement by calling me:tell(). The built-in function toliteral() is helpful for this, you can just call:me:tell(toliteral(whatevervariable)):
+Because you're entering multiple statements, the statements need a semi-colon where required.
 
-```>;;foo = {"a", "b", "c", "d", "e", "f"}  ; bar = foo[2..length(foo)] ; me:tell(toliteral(bar)) ;
+Also note that multi-statement evals don't automatically print the return value of the statement, so you need to explicitly print whatever you want to see in the body of your eval statement by calling me:tell(). The built-in function toliteral() is helpful for this, you can just call:  me:tell(toliteral(whatevervariable)):
+
+```
+>;;foo = {"a", "b", "c", "d", "e", "f"} ; bar = foo[2..length(foo)] ; me:tell(toliteral(bar)) ;
 {"b", "c", "d", "e", "f"}
 => 0
 [used 161 ticks, 0 seconds.]
@@ -440,37 +471,43 @@ You can set the parser arguments using @args.
 
 Now we get into how the args work. This immediately gets into parsing and matching, since that's the whole point of verb args. These topics deserve a section of their own, and I hope to find time to write it. However, you can't really do any moocoding without some arg basics, so here's a short primer meant to give you just sufficient info to get started.
 
-In moo programming, "arguments" generally refers to the somewhat Zork-like command-line parser, though "@args" refers to the verb arguments.
+In moo programming, "arguments" generally refers to the somewhat Zork-like command-line parser that players routinely use to interact with the MOO world.  "@args" refers to the verb arguments.
 
-When somebody types an interactive moo command, like "look at objectname", which ends up making your verb code run, any arguments included in that interactice command (called the invocation) will be stored in a list. That list will be automatically available to your verb code, stored in a variable named "args". In your verb code, usually one of the first things you do is use the @ sign (i.e. @args) to expand that list. So "@args" became moo coder shorthand for referring to the parsed verb argument list.
+When somebody types an interactive moo command, like "look at objectname", which ends up making your verb code run, the text they typed gets fed to a piece of the MOO server called the command line parser.  The command line parser looks at the text and looks at the objects around the player and breaks up the text (which is called parsing) into pieces (which are then called arguments).  Those arguments will be automatically available to your verb code, stored in a list variable named "args". In your verb code, usually one of the first things you do is use the @ sign (i.e. @args) to expand that list. So "@args" became moo coder shorthand for referring to the parsed verb argument list.
 
-**Note:** _args is what is called a "context variable". There are some other standard context variables, some of them are discussed in the following paragraphs._
+**Note:** _args is what is called a "context variable", meaning the moo automatically provides it to your verb as part of the context in which the verb runs. There are some other standard context variables, some of them are discussed in the following paragraphs._
 
-Command-line arguments consist of three elements, (after the verbname) e.g.:
+Command-line arguments consist of three elements (after the verbname) e.g.:
 
-*   verbname any in this*   verbname this to any*   verbname any in any*   verbname none none none*   verbname any any any
+* verbname any in this
+* verbname this to any
+* verbname any in any
+* verbname none none none
+* verbname any any any
 
 And so forth.
 
-The "foo preposition bar" form gets automatically parsed by the MOO's command-line parser; it finds the verb name and argument structure that best matches, and invokes it.
+MOO's command line parser automatically parses the "foo preposition bar" form and tries to find the verb name and argument structure that best matches that, and invokes that verb.
 
-"this" is a string that matches of the object the verb is defined on, i.e. the object name or one of the object aliases (see note below on aliases).
-
-"any" is any string. It might match an object in the same location (room) or it might just be a string that the user arbitrarily chose. Your verb code has to decide what to do with that.
+"this" is a string that matches the object the verb is defined on, i.e. the object name or one of the object aliases.
 
 **Note:** _Besides the object.name property, which just about every object in the moo db has, most objects also have object.aliases, which contains a list of alternative names for the object. These are also used by the arg parsing and object matching code._
+
+"any" is any arbitrary string. It might match an object in the same location (room) or it might just be a string that the user arbitrarily chose. Your verb code has to decide what to do with that.
 
 There are some rules for precedence - the parser will try to match to player:verbname() before trying player.location:verbname(), and so forth.
 
 ### Context Variables
 
-As mentioned above, the "args" variable is automatically available to any code inside a verb. The args variable contains a list of all of the arguments passed into the variable. Since it's so often immediately expanded with the @ sign, it's often referred to ind discussion as "@args".
+As mentioned above, the "args" variable is automatically available to any code inside a verb. The args variable contains a list of all of the arguments passed into the variable. Since it's so often immediately expanded with the @ sign, it's often referred to in discussion as "@args".
 
 The args variable is one example of a "context variable". There are several of these super handy context variables. Besides the parser-related ocntext variables I'll get into below, there are:
 
-*   "this", contains the object reference for the object that the verb is defined on.*   "player", contains the object reference for whichever player started the current chain of execution, usually by invoking a verb interactively, using the command line.*   "here" and "me" aren't actually context variables, but they're customarily defined in your player.eval_env property for use with the eval command, both of which are discussed further below.
+* "this", contains the object reference for the object that the verb is defined on.
+* "player", contains the object reference for whichever player started the current chain of execution, usually by invoking a verb interactively, using the command line.
+* "here" and "me" aren't actually context variables, but they're customarily defined in your player.eval_env property for use with the eval command, both of which are discussed further below.
 
-**Note:** _player doesn't **always** contain the invoking player's object reference, there's a special built-in function named set_task_perms() that will set it to the verb owner's player object reference, or if the verb owner has wizard perms (player.wizard=1), can be used to set it to an arbitrary player. This gets into tricky moo security topics, however. If you're curious about it, also see the built-in function callers()._
+**Note:** _the "player" context variable doesn't **always** contain the invoking player's object reference, there's a special built-in function named set_task_perms() that will set it to the verb owner's player object reference, or if the verb owner has wizard perms (player.wizard=1), can be used to set it to an arbitrary player. This gets into tricky moo security topics, however. If you're curious about it, also see the built-in function callers()._
 
 Somewhat related to the topic, there're also several standard error or result code values that are available in verb code, much like the $ variable. These are mainly related to the built-in function typeof(), and are discussed a little in the section "Type Conversion" below.
 
@@ -480,27 +517,30 @@ When the parser invokes the verbs, it pre-populates several special context vari
 
 You have an object named "box" with a "put" verb and the arguments "any in this", which defined by using the @verb command:
 
-@verb box:put any in this
+```@verb box:put any in this```
 
 You could also define it in two steps:
 
-@verb box:put @args box:put any in this
+```
+@verb box:put 
+@args box:put any in this
+```
 
 You type "put gold in box".
 
-The parser looks for a player:put command, doesn't find one
+1. The parser looks for a player:put command, doesn't find one
 
-The parser looks for a room:put command, doesn't fine one
+2. The parser looks for a room:put command, doesn't fine one
 
-The parser looks for a "gold" with a put command and the appropriate args, doesn't find one.
+3. The parser looks for a "gold" with a put command and the appropriate args, doesn't find one.
 
-The parser looks for a "box" with a put command and the appropriate args, and gets a match.
+4. The parser looks for a "box" with a put command and the appropriate args, and gets a match.
 
-The parser invokes box:put().
+5. The parser invokes box:put().
 
-The code inside the verb box:put can assume that there will be a dobjstr (direct object string) variable containing the string "gold" and an iobjstr (indirect object sring) variable containing the string "box".
+6. The code inside the verb box:put can assume that there will be a dobjstr (direct object string) variable containing the string "gold" and an iobjstr (indirect object sring) variable containing the string "box".
 
-The parser will also try to match the dobjstr (direct object string) and iobjstr (indirect object string) and set the dobj variable and iobj variable for the verb to any matched objects.
+7. The parser will also try to match the dobjstr (direct object string) and iobjstr (indirect object string) and set the dobj variable and iobj variable for the verb to any matched objects.
 
 Note that verbs with args of "none none none" aren't meant to have parameters at all.
 
@@ -514,23 +554,24 @@ Generally speaking, if your verb doesn't have its args set to "this none this", 
 
 In addition, such not-to-be-directly-invoked verbs must be @chmodded to +x, to allow them to be invoked. If they're not +x, the moo will report a rather confusing "verb not found" error.
 
-@chmod +x box:put_helper_verb
+```@chmod +x box:put_helper_verb```
 
 The reason for this is that not-to-be-directly-invoked verbs are expected (in well-designed code) to do the heavy lifting, the important and tricky stuff, and Pavel (or possibly Ghond) wanted to avoid having lots of half-done code be invocable by anybody.
 
 ### Flow Control: if, for, while, suspend, fork
 
-A simple list of instructions, one after the other, is technically a program, but you probably want some more sophisticated options than just a straight one-after-the-other list of instructions. You want things like being able to check something and execute one set of instructions or the other (if/endif), or being able to repeat an instruction some number of times (for/endfor) .
+A simple list of instructions, one after the other, is technically a program, but you probably want some more sophisticated options than just a straight one-after-the-other list of instructions. You want things like being able to check something and execute one set of instructions or the other (if/endif), or being able to repeat an instruction some number of times (for/endfor).  This is called, in programmer speak, "flow control", because they enable you to mess with the "flow of execution", the order of how the statements in the program are executed.
 
-The built-in functions suspend() and fork() aren't really technically flow control operators, but they play a similar role, so I'm going to talk about them here.
+Some flow control operators are called conditionals (if/then), some are called looping operators (while, endwhile).  The built-in functions suspend() and fork() aren't really technically flow control operators, but they play a similar role, so I'm going to talk about them too.
 
 Some general rules of thumb:
 
-*   Every flow control structure starts with a keyword (if, for, while).
-*   Every flow control structure ends with a matching keyword that starts with "end" (endif, endfor, endwhile).
+*   Every flow control structure starts with a keyword (if, for, while, fork).
+*   Every flow control structure (except suspend()) ends with a matching keyword that starts with "end" (endif, endfor, endwhile, endfork).
 *   The lines between the start and end are called a "block" of code.
-*   The block is customarily indented 4 characters. That's only for readability purposes, but the moo compiler/decompiler automatically does it that way.
+*   The block is customarily indented 4 characters. That's only for readability purposes, but the moo compiler/decompiler automatically formats it that way.
 *   The line that starts the flow control structure usually contains an expression.
+*   Flow control structures (except suspend()) do NOT need semi-colons at the end of the line.
 
 Let's jump right in and show some examples of if, while, for, suspend and fork. I'll get into them in more detail after.
 
@@ -652,7 +693,7 @@ A list slice reference...
 Or even just a range...
 
 ```
->;for x in [1..10] me:tell(x) ; endfor
+>;;for x in [1..10] me:tell(x) ; endfor
 1
 2
 3
@@ -728,12 +769,12 @@ Use the toliteral() function to convert it to a string you can print out (especi
 
 Use the various tofoo() functions to convert back and forth:
 
-*   toobj() (converts a string like "#1449" into an objectnumber reference variable)
-*   toint() or tonum() (converts "1" to the value 1; originally ints were the only numerics in moo)
-*   tostr() (converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449")
-*   tofloat() (converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0)
-*   toliteral() (converts whatever value to a print-friendly value)
-*   typeof() (returns an int value corresponding to the type of the value you passed in)
+*   toobj() -- converts a string like "#1449" into an objectnumber reference variable
+*   toint() or tonum() -- converts "1" to the value 1; originally ints were the only numerics in moo
+*   tostr() -- converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449"
+*   tofloat() -- converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0
+*   toliteral() -- converts whatever value to a print-friendly value
+*   typeof() -- returns an int value corresponding to the type of the value you passed in
 
 Note that typeof returns an int value, but there are several standard values that are defined in moocode. INT is 0, OBJ is 1, STR is 2, ERR is 3, etc. See "help typeof" for more info. You could just check to see if the return value is 0 or 1, etc, but it's a lot smarter to use those predefined variables. That way, when you look at a bunch of code you wrote in a drunken binge, you'll have some vague idea wtf you were intending to do.
 
@@ -741,7 +782,7 @@ Note that typeof returns an int value, but there are several standard values tha
 
 ### Threading, Ticks and Tasks
 
-Like just about all computers, MOO doesn't really do many things at once, it just fakes it. Unlike other systems, MOO uses a rather distinctive approach to faking it. It's not _really_ multitasking, but it fakes it rather well, especially for a multi-user, multi-coder system.
+Like just about all computers, MOO doesn't really do many things at once, it just fakes it. Unlike other systems, MOO uses a rather distinctive approach to faking it. It's not _really_ multitasking, but it fakes it rather well, especially for a multi-user, multi-coder system.   (EDIT: aaaand now it's 2023 and multicore CPUs have been everywhere for a decade or two, so the above "just about all computers" is no longer technically true, but it's still the way MOO works.)
 
 At any given point in time, the MOO server is running only one verb invocation. This is called a task. What happens if that task gets out of hand? What if some idiot codes a verb to calculate pi to the final decimal place?
 
@@ -801,15 +842,15 @@ In addition, players are generally descendants of various classes that provide u
 
 Rooms are locations; like any MOO object they have a contents property containing a list of objects they contain, but they also have lots of verbs oriented towards players who are contained in them. Players and rooms both work closely with the MOO parser to create the whole MOO experience, both in terms of making the verbs work and in terms of creating the sense of space and place.
 
-$room:look() is the verb that the parser invokes if you simply type "look" with no arguments.
+* $room:look() is the verb that the parser invokes if you simply type "look" with no arguments.
 
-$room:look() calls room:look_self() to return text describing the room.
+* $room:look() calls room:look_self() to return text describing the room.
 
-$room:look_self() calls room:description() and $room:tell_contents() and sends the results to player:tell().
+* $room:look_self() calls room:description() and $room:tell_contents() and sends the results to player:tell().
 
-$room:description() defaults to just returning the text in the property room.description
+* $room:description() defaults to just returning the text in the property room.description
 
-$room:tell_contents() defaults to just listing the objects in the property room.contents, but they can and do often work differently.
+* $room:tell_contents() defaults to just listing the objects in the property room.contents, but they can and do often work differently.
 
 There are some room generics, for example, that dynamically compose the description from objects that are in the room that are designed to work with such rooms, and then the room leaves any such objects out of the room:tell_contents() output.
 
@@ -1100,6 +1141,7 @@ That's the end of our little "the really real realest basics of programming" sec
 
 ### Outline of Planned Revision
 
+```
 *   Basic MOOCode Gotchas
 **   Comments  
 **   Variable Declaration and Scoping
@@ -1136,5 +1178,6 @@ That's the end of our little "the really real realest basics of programming" sec
 **   max_object()
 **   $playerdb
 **   player.owned_objects
+```
 
 The source code for this file was taken from http://www.darksleep.com/notablog/articles/LambdaMOO_Programming_Tutorial and converted to markdown and is stored in this repository for posterity. It is not HTML5.
