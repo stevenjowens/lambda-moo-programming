@@ -70,7 +70,7 @@ https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC6
 
 #### Object Oriented
 
-MOO stands for "Mud, Object-Oriented". If you don't understand what "object oriented" means, it's an approach for organizing the code and data in a syste I've added a brief description below.
+MOO stands for "Mud, Object-Oriented". If you don't understand what "object oriented" means, it's an approach for organizing the code and data in a system.  I've added a brief description below.
 
 MOO's object-oriented approach is slightly different from many object-oriented programming langauges. In most object-oriented languages, you have a division between the definition of an object (its blueprint, so to speak) and instances of the object in the system. The object definitions (called classes) exist off in some abstract place that the rest of the code generally can't get at, your code in the system never deals with them directly. Instead your code creates "instances" of a given class and use the instance.
 
