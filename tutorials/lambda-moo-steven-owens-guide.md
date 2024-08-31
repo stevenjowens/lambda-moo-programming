@@ -222,7 +222,7 @@ otherotherfloat = somefloat/someotherfloat ;
 
 In the example above, "someotherfloat" will contain the value "2.5" and "otherotherfloat" will contain the value "2.0".
 
-You can't mix integers and floats, so in MOOcode you need to either include the decimal point in all the numbers in a statement or use the "tofloat()" built-in function to convert the value in a variable into a float (see "Type Conversion", below). Otherwise you get a type mismatch error:
+You can't mix integers and floats, so in MOOcode you need to either include the decimal point in all the numbers in a statement or use the "tofloat()" built-in function to convert the value in a variable into a float (see [Type Conversion](https://github.com/sevenecks/lambda-moo-programming/blob/master/tutorials/lambda-moo-steven-owens-guide.md#type-conversion), below). Otherwise you get a type mismatch error:
 
 ```
 1/2.0
@@ -458,7 +458,7 @@ And perl will try to Do Something Useful and assume that you really meant to con
 
 ```message = "The number is " + tostr(somenumvariable); ```
 
-There are other towhatever() builtins, mainly tonum() which converts to a numeric value and toobj() which converts to an object reference number. See "Type Conversion" below.
+There are other towhatever() builtins, mainly tonum() which converts to a numeric value and toobj() which converts to an object reference number. See [Type Conversion](https://github.com/sevenecks/lambda-moo-programming/blob/master/tutorials/lambda-moo-steven-owens-guide.md#type-conversion) below.
 
 ## Perms and Args
 
@@ -502,7 +502,7 @@ The args variable is one example of a "context variable". There are several of t
 
 **Note:** _player doesn't **always** contain the invoking player's object reference, there's a special built-in function named set_task_perms() that will set it to the verb owner's player object reference, or if the verb owner has wizard perms (player.wizard=1), can be used to set it to an arbitrary player. This gets into tricky moo security topics, however. If you're curious about it, also see the built-in function callers()._
 
-Somewhat related to the topic, there're also several standard error or result code values that are available in verb code, much like the $ variable. These are mainly related to the built-in function typeof(), and are discussed a little in the section "Type Conversion" below.
+Somewhat related to the topic, there're also several standard error or result code values that are available in verb code, much like the $ variable. These are mainly related to the built-in function typeof(), and are discussed a little in the section "[Type Conversion](https://github.com/sevenecks/lambda-moo-programming/blob/master/tutorials/lambda-moo-steven-owens-guide.md#type-conversion) below.
 
 ### Parser-related Context Variables
 
