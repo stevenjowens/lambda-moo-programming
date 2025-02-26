@@ -259,6 +259,8 @@ You define a list by enclosing a comma-separated series of elements in curly bra
 
 ```bar = {1, 2, 3} ;```
 
+Note that the elements don't have to all be the same type of value, you can mix and match:
+
 ```baz = {1, "two", 3} ;```
 
 You reference a specific element in a list by appending a number in [square brackets] to the variable name. The number is called an index, and accessing a list element this way is called indexing:
