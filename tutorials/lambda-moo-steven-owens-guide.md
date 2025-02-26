@@ -606,21 +606,26 @@ and fork. I'll get into them in more detail after.
 Use "if" for conditionals - test some condition, and either carry out
 the set of commands in the block or not. 
 
+```
     if (some expression that evaluates to 0 or not-0)
       "do something" ;
     endif
+```
 
 You can also use if/else for when you want have a set of instructions
 for when the if test results in not-true.
 
+```
     if (some expression that evaluates to 0 or not-0)
       "do something" ;
     else
       "do something else" ;
     endif
+```
 
 The while and for flow controls are for looping, i.e. doing something one or more times:
 
+```
     while (some expression that evaluates to 0 or not-0)
       "do something repetitive";
     endwhile
@@ -628,29 +633,36 @@ The while and for flow controls are for looping, i.e. doing something one or mor
     for foo in (some expression that produces a list)
       "do something with foo" ;
     endfor
+```
 
 The built-in function suspend() is for pausing.
 
+```
     suspend(some number of seconds you want the task to pause) ;
+```
 
 The built-in function fork() is for starting a new, separate task that continues on and does its own thing.
 
-
+```
     fork (somenumber of seconds) 
       "do something somenumber of seconds later, in a separate task" ;
     endfork
     "immediately after scheduling the fork, continue on with the rest of the program" ;
-    
+```
+
+Note that the number of seconds can be zero (0) so the fork starts right away.
+
 Sometimes that separate task can run for a long, long time, in which case it might be handy to have the taskid:
 
 ```
 fork taskidvariable (somenumber of seconds) 
+  this.task_id = taskidvariable ;
   "do something somenumber of seconds later, in a separate task" ;
 endfork
 "immediately after scheduling the fork, continue on with the rest of the program" ;
 ```
 
-The taskidvariable is optional. If it's there, it gets filled with the taskid for the task that the fork creates. Typically the next thing you do is store the taskidvariable's contents in some property, so you can later on use it to check on, or if necessary kill, the task.
+The taskidvariable is optional. If it's there, it gets filled with the taskid for the task that the fork creates. But for it to be useful, you have to do something with it.  Typically that's store the taskidvariable's contents in some property, as we did above, so you can later on use it to check on, or if necessary kill, the task.
 
 #### tests
 
