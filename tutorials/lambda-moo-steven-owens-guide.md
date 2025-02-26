@@ -96,7 +96,7 @@ You have the server and the database (colloquially "the db"). The server is the 
 
 The moo language has a number of predefined functions, which are generally referred to as functions or sometimes as "built-in functions" or "built-ins" for short.
 
-Most built-ins are documented in MOO's online help Sometimes there's more than one help entry that matches a built-in function name, so as a rule of thumb append an empty parentheses to the functionname() when you use the help command. For example "help tonum()" will get you help on the built-in function named tonum (see "Data Types", below).
+Most built-ins are documented in MOO's online help. Sometimes there's more than one help entry that matches a built-in function name, so as a rule of thumb append an empty parentheses to the functionname() when you use the help command. For example "help tonum()" will get you help on the built-in function named tonum (see "Data Types", below).
 
 In addition to the built-ins, there are a large number of handy little
 utility verbs. Since verbs have to be defined on objects, these
