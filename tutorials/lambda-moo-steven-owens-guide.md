@@ -405,12 +405,14 @@ I never really got in the habit of using multi-statement evals. Generally I find
 
 You start a multi-line eval with a double-semicolon, i.e.:
 
-```\;\;foo = {1, 2, 3}; bar = {4, 5};  for x in ({@foo, @bar}) me:tell(x) ; endfor<enter>
+```
+;;foo = {1, 2, 3}; bar = {4, 5};  for x in ({@foo, @bar}) me:tell(x) ; endfor<enter>
 ```
 
 Also note that multi-line evals don't automatically print the return value of the statement, so you need to explicitly print whatever you want to see in the body of your eval statement by calling me:tell(). The built-in function toliteral() is helpful for this, you can just call:me:tell(toliteral(whatevervariable)):
 
-```>;;foo = {"a", "b", "c", "d", "e", "f"}  ; bar = foo[2..length(foo)] ; me:tell(toliteral(bar)) ;
+```
+>;;foo = {"a", "b", "c", "d", "e", "f"}  ; bar = foo[2..length(foo)] ; me:tell(toliteral(bar)) ;
 {"b", "c", "d", "e", "f"}
 => 0
 [used 161 ticks, 0 seconds.]
