@@ -534,13 +534,22 @@ When the parser invokes the verbs, it pre-populates several special context vari
 
 You have an object named "box" with a "put" verb and the arguments "any in this", which defined by using the @verb command:
 
+```
 @verb box:put any in this
+```
 
 You could also define it in two steps:
 
-@verb box:put @args box:put any in this
+```
+@verb box:put 
+@args box:put any in this
+```
 
-You type "put gold in box".
+You type:
+
+```
+put gold in box
+```
 
 The parser looks for a player:put command, doesn't find one
 
@@ -552,7 +561,7 @@ The parser looks for a "box" with a put command and the appropriate args, and ge
 
 The parser invokes box:put().
 
-The code inside the verb box:put can assume that there will be a dobjstr (direct object string) variable containing the string "gold" and an iobjstr (indirect object sring) variable containing the string "box".
+The code inside the verb box:put() can assume that there will be a dobjstr (direct object string) variable containing the string "gold" and an iobjstr (indirect object sring) variable containing the string "box".
 
 The parser will also try to match the dobjstr (direct object string) and iobjstr (indirect object string) and set the dobj variable and iobj variable for the verb to any matched objects.
 
@@ -572,7 +581,9 @@ Generally speaking, if your verb doesn't have its args set to "this none this", 
 
 In addition, such not-to-be-directly-invoked verbs must be @chmodded to +x, to allow them to be invoked. If they're not +x, the moo will report a rather confusing "verb not found" error.
 
+```
 @chmod +x box:put_helper_verb
+```
 
 The reason for this is that not-to-be-directly-invoked verbs are expected (in well-designed code) to do the heavy lifting, the important and tricky stuff, and Pavel (or possibly Ghond) wanted to avoid having lots of half-done code be invocable by anybody.
 
