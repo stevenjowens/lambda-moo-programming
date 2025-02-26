@@ -156,8 +156,13 @@ Object #-1 is "nothing" , the null object, the object that does not exist. Thing
 
 There's actually a root property, $nothing, that contains the value #-1, but I'm pretty sure that $nothing does not define #-1, it merely points to it and gives you a more expressive way to use the value #-1. I.e. instead of putting the characters #-1 in your code, you put $nothing and anyone reading the code (including you, a few months or years later!) finds it easier to understand what your intent was.
 
-While we're on the topic, besides $nothing there's also $ambiguous_match which equals #-2 and $failed_match which equals #-3.  These are 
-For more information, see the LambdaMOO Programmer's manual section "MOO Value Types".
+While we're on the topic, besides $nothing there's also $ambiguous_match which equals #-2 and $failed_match which equals #-3.  These are used by the built-in parser.
+
+For more information, see the LambdaMOO Programmer's manual section "MOO Value Types" and "The Built-In Command Parser":
+
+[https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC3](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC3)
+
+[https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8)
 
 ### Verb Invocation and Property Access
 
