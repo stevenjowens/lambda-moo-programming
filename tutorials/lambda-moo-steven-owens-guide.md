@@ -320,7 +320,7 @@ baz = {@foo, @bar} ;
 
 baz will now contain {1, 2, 3, 4, 5}
 
-While you only use { and } when you're creating a list, and @ when you expand a list, the "moo way" is that you do a whole lot of list creation and expansion. For example the "right" way to append to a list is:
+While you only use { and } when you're creating a list, and @ when you expand a list, the "moo way" is that you do a whole lot of list creation and expansion. For example the "right" way to append to a list is to create a new list and use the @ to expand the old list inside the new list.
 
 ```
 baz = {1, 2, 3, 4, 5};
@@ -329,17 +329,19 @@ baz = {@baz, 6} ;
 
 baz will now contain {1, 2, 3, 4, 5, 6}
 
-What you are literally doing here is creating a new list that contains both the contents of the old list, baz, and the new value, 6, and then storing the reference to that new list in the variable name that baz, which previously used to store the reference to the old list. In a more longer form, it might look like this:
+If you're new at programming, the above is an example of a very common bit of programming idiom that can be a little confusing, so I'm going to take a slight detour to talk about it.  
+
+What you are literally doing here is creating a new list that contains both the contents of the old list, baz, and the new value, 6, and then storing the reference to that new list in the variable name baz, which previously used to store the reference to the old list. In a more longer form, it might look like this:
+
+The second line of the example above actually does two things.  First, it creates a new list {@baz, 6} and second, it stores a reference to that new list in the variable name baz, which previously used to store the reference to the old list.  Let's do it again, only this time make it more explicit what's going on.
 
 ```
 baz = {1, 2, 3, 4, 5};
 bat = {@baz, 6} ;
-baz = bat
+baz = bat ;
 ```
 
-bat will now contain {1, 2, 3, 4, 5, 6} and
-
-baz will now contain {1, 2, 3, 4, 5 ,6}
+We do this because we don't want to have to have all of our code after this point refer to the bat variable instead of the baz variable.  If we don't, now we have two variables to keep track of, and besides we're not going to use the baz variable again, so we might as well re-use it to hold the newly expanded list.
 
 But of course, that's longer and using the extra variable name "bat" doesn't serve much purpose; usually in cases like this you'll never use the bat variable again.
 
