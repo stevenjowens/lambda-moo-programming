@@ -231,7 +231,7 @@ Note:  It's called a floating point number because we don't have infinite memory
 You can't mix integers and floats, so in MOOcode you need to either include the decimal point in all the numbers in a statement or use the "tofloat()" built-in function to convert the value in a variable into a float (see "Type Conversion", below). Otherwise you get a type mismatch error:
 
 ```
-1/2.0
+;1/2.0
 #-1:Input to EVAL, line 3:  Type mismatch
 ... called from built-in function eval()
 ... called from #217:eval_cmd_string (this == #1449), line 19
