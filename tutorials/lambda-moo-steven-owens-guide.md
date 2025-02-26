@@ -255,7 +255,7 @@ Object numbers are references to objects in the MOO database. Moo recognizes obj
 
 You define a list by enclosing a comma-separated series of elements in curly braces
 
-```foo = {"a", "b", "c"} ;```
+```foo = {"one", "two", "three"} ;```
 
 ```bar = {1, 2, 3} ;```
 
@@ -263,11 +263,11 @@ Note that the elements don't have to all be the same type of value, you can mix 
 
 ```baz = {1, "two", 3} ;```
 
-You reference a specific element in a list by appending a number in [square brackets] to the variable name. The number is called an index, and accessing a list element this way is called indexing:
+You reference a specific element in a list by appending a number in [square brackets] to the variable name. The number is called an _index_, and accessing a list element this way is called indexing:
 
 ```xyzzy = foo[2] ;```
 
-The index of the very first item in the list is 1, as you would expect if you're a normal human being:
+1 is the index of the very first item in the list, as you would expect if you're a normal human being:
 
 ```
 foo = {"a", "b", "c"} ;
@@ -278,11 +278,11 @@ The player sees:
 
 ```The element at index 1 is: a```
 
-If you're a programmer rather than a normal human being, you expect the index of the very first element to be 0, for technical reasons which I will skip for now. Getting used to this is usually a major early stumbling block for non-programmers, which is probably why moo's inventors (Pavel and Ghond) decided to go with 1 instead. But if you're already a programmer, you're going to expect it to be zero, which is why I'm pointing this out.
+If you're a programmer rather than a normal human being, you expect the index of the very first element to be 0, for technical reasons which I will skip for now.  Getting used to zero-indexing is usually a major early stumbling block for non-programmers, which is probably why moo's inventors (Pavel and Ghond) decided to go with 1 instead. But if you're already a programmer, you're going to expect it to be zero, which is why I'm pointing this out.
 
 Note that lists can contain any sort of data, including other lists:
 
-```foo = {"a", b", c", {1, 2, 3} } ;```
+```foo = {"one", "two", "three", {1, 2, 3} } ;```
 
 Nested lists can get quite complicated. One particularly common form of nested lists is called associative lists, or alists for short, and the $list_utils have a number of special verbs for dealing wtih alists. Other languages usually use what's called a dictionary type (often "dict" for short) or "hashtable" or "map" to serve the same purpose.
 
