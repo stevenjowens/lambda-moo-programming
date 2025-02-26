@@ -41,11 +41,11 @@ Also there are a variety of tutorials. I'm not trying to duplicate or replace th
 
 I'm going to assume you have a basic familiarity with programming concepts, but don't get too stressed out if you don't, you'll be able to pick that up as you go along. If you're totally, completely new at this, I explain some general concepts at the end of this page, in a section titled: _Real Basics of Programming in Moocode_
 
-I'm going to assume you have a basic familiarity with moo concepts, but just to be clear:
+I'm going to assume you have a basic familiarity with muds and with moo concepts, but just to be clear:
 
 #### Objects, Verbs and Properties
 
-MOO consists of objects.
+MOO is a mud that consists of objects.
 
 MOO objects have properties and verbs.
 
