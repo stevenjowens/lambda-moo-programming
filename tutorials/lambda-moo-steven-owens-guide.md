@@ -458,7 +458,7 @@ Moo code is dynamically typed. This means that you don't have to go through a lo
 
 ```foo = 3 ;```
 
-This is a lot more convenient (and fun) but it also gives you a lot more rope to hang yourself. You can be in the middle of a verb and accidentally typo for variable name as "foop" instead of "foot" (don't ask me how you typoed a "p" instead of a "t", maybe you have a weird keyboard layout) and moo will happily create the new variable "foop" and assign it, leading to all sorts of unexpected craziness.
+This is a lot more convenient (and fun) but it also gives you a lot more rope to hang yourself. You can be in the middle of a verb and accidentally typo your variable name as "foop" instead of "foot" (don't ask me how you typoed a "p" instead of a "t", maybe you have a weird keyboard layout) and moo will happily create the new variable "foop" and assign it, leading to all sorts of unexpected craziness.
 
 Fortunately, hanging yourself isn't all that dangerous in the MOO world, so you'll usually get a chance to spot the problem and fix it.
 
@@ -470,7 +470,7 @@ And perl will try to Do Something Useful and assume that you really meant to con
 
 ```message = "The number is " + tostr(somenumvariable); ```
 
-There are other towhatever() builtins, mainly tonum() which converts to a numeric value and toobj() which converts to an object reference number. See "Type Conversion" below.
+There are other towhatever() builtins, mainly tonum() which converts to a numeric value and toobj() which converts the value it's given to an object reference number. See "Type Conversion" below.
 
 ## Perms and Args
 
@@ -484,13 +484,19 @@ Now we get into how the args work. This immediately gets into parsing and matchi
 
 In moo programming, "arguments" generally refers to the somewhat Zork-like command-line parser, though "@args" refers to the verb arguments.
 
-When somebody types an interactive moo command, like "look at objectname", which ends up making your verb code run, any arguments included in that interactice command (called the invocation) will be stored in a list. That list will be automatically available to your verb code, stored in a variable named "args". In your verb code, usually one of the first things you do is use the @ sign (i.e. @args) to expand that list. So "@args" became moo coder shorthand for referring to the parsed verb argument list.
+When somebody types a normal command in moo, whatever they type is fed to a chunk of the moo server code called the The Built-In Parser, hereafter just "the parser".  The parser looks at the words and tries to figure out what verb it should run.  It runs that verb, and it puts the breakdown of the words that were entered into a predefined set of variables, called context variables, that the verb code can then access.
+
+One of those predefined variables is "args", which just contains a list of all the words.  The code in your verb doesn't have to define args, it can just assume it's there and access it.  In your verb code, usually one of the first things you do is use the @ sign (i.e. @args) to expand that list. So "@args" became moo coder shorthand for referring to the parsed verb argument list.
 
 **Note:** _args is what is called a "context variable". There are some other standard context variables, some of them are discussed in the following paragraphs._
 
-Command-line arguments consist of three elements, (after the verbname) e.g.:
+Command-line arguments consist of the verb name followed by three args elements, e.g.:
 
-*   verbname any in this*   verbname this to any*   verbname any in any*   verbname none none none*   verbname any any any
+- verbname any in this
+- verbname this to any
+- verbname any in any
+- verbname none none none
+- verbname any any any
 
 And so forth.
 
@@ -504,13 +510,19 @@ The "foo preposition bar" form gets automatically parsed by the MOO's command-li
 
 There are some rules for precedence - the parser will try to match to player:verbname() before trying player.location:verbname(), and so forth.
 
+For more information about the possible verb args, see:
+
+[https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC7](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC7)
+
 ### Context Variables
 
-As mentioned above, the "args" variable is automatically available to any code inside a verb. The args variable contains a list of all of the arguments passed into the variable. Since it's so often immediately expanded with the @ sign, it's often referred to ind discussion as "@args".
+As mentioned above, the "args" variable is automatically available to any code inside a verb. The args variable contains a list of all of the arguments passed into the variable. Since it's so often immediately expanded with the @ sign, it's often referred to in discussion as "@args".
 
-The args variable is one example of a "context variable". There are several of these super handy context variables. Besides the parser-related ocntext variables I'll get into below, there are:
+The args variable is one example of a "context variable". There are several of these super handy context variables. Besides the parser-related context variables I'll get into below, there are:
 
-*   "this", contains the object reference for the object that the verb is defined on.*   "player", contains the object reference for whichever player started the current chain of execution, usually by invoking a verb interactively, using the command line.*   "here" and "me" aren't actually context variables, but they're customarily defined in your player.eval_env property for use with the eval command, both of which are discussed further below.
+- "this", contains the object reference for the object that the verb is defined on.
+- "player", contains the object reference for whichever player started the current chain of execution, usually by invoking a verb interactively, using the command line.
+- "here" and "me" aren't actually context variables, but they're customarily defined in your player.eval_env property for use with the eval command, both of which are discussed further below.
 
 **Note:** _player doesn't **always** contain the invoking player's object reference, there's a special built-in function named set_task_perms() that will set it to the verb owner's player object reference, or if the verb owner has wizard perms (player.wizard=1), can be used to set it to an arbitrary player. This gets into tricky moo security topics, however. If you're curious about it, also see the built-in function callers()._
 
@@ -547,6 +559,10 @@ The parser will also try to match the dobjstr (direct object string) and iobjstr
 Note that verbs with args of "none none none" aren't meant to have parameters at all.
 
 Args of "any any any" is for verbs that expect to do some sort of custom parsing on their own.
+
+For more information about the Built-In Parser (including a list of the context variables), see:
+
+[https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8)
 
 #### this none this and @chmod +x
 
