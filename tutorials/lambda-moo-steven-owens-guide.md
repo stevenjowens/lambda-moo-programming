@@ -224,8 +224,9 @@ somefloat = 5.0 ;
 someotherfloat = 5.0/2.0;
 otherotherfloat = somefloat/someotherfloat ;
 ```
-
 In the example above, "someotherfloat" will contain the value "2.5" and "otherotherfloat" will contain the value "2.0".
+
+Note:  It's called a floating point number because we don't have infinite memory, so we have to be clever about how we store the value in memory. In the case of floating point numbers, we store a decimal as essentially an integer plus an extra bit of data that tells us what column the decimal point goes in.  I.e. the decimal point "floats" around the integer.
 
 You can't mix integers and floats, so in MOOcode you need to either include the decimal point in all the numbers in a statement or use the "tofloat()" built-in function to convert the value in a variable into a float (see "Type Conversion", below). Otherwise you get a type mismatch error:
 
