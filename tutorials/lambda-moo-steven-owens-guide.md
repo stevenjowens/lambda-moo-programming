@@ -284,7 +284,7 @@ Note that lists can contain any sort of data, including other lists:
 
 ```foo = {"one", "two", "three", {1, 2, 3} } ;```
 
-Nested lists can get quite complicated. One particularly common form of nested lists is called associative lists, or alists for short, and the $list_utils have a number of special verbs for dealing wtih alists. Other languages usually use what's called a dictionary type (often "dict" for short) or "hashtable" or "map" to serve the same purpose.
+Nested lists can get quite complicated. One particularly common form of nested lists is called associative lists, or alists for short, and the $list_utils have a number of special verbs for dealing with alists. Other languages usually use what's called a dictionary type (often "dict" for short) or "hashtable" or "map" to serve the same purpose.
 
 **Note:** _hashtable as a name describes how it's implemented; map as a name describes the act of using one value to look up another value. I'm explaining this mainly because the terms sometimes come up in programming discussions, so it's useful to be familiar with them._
 
@@ -792,7 +792,7 @@ later.
 
 ### Type Conversion
 
-Moocode isn't friendly enough to auto-convert between types for you, most of the time. You have objects references, ints, strings, floats. Since it's MOO, by definition a lot of the time you're going to be dealing wtih other people's data.
+Moocode isn't friendly enough to auto-convert between types for you, most of the time. You have objects references, ints, strings, floats. Since it's MOO, by definition a lot of the time you're going to be dealing with other people's data.
 
 Use the typeof() function to see what type a particular parameter is.
 
