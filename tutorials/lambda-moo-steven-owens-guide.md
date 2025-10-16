@@ -1043,7 +1043,7 @@ What follows is pretty much the same process for most objects:
 
 As it turns out, room:description() is not part of $room:look_self(). I'm not sure where that get added to look_self() (though the :description() verb is defined on the Root Class, #1).
 
-### The End of the MooCode Stuff
+## The End of the MooCode Stuff
 
 That's all for now. The sections below are two things.
 
@@ -1051,7 +1051,7 @@ At the very end is an outline for my next draft of this tutorial. Really, this d
 
 In between the outline and here is a section adapted from an article I originally wrote about Java, that tries to help an absolute beginner and gets into things like "what's a statement" and "what is syntax", etc.
 
-### Real Basics of Programming in Moocode 
+# Real Basics of Programming in Moocode 
 
 These details get skipped a lot. If you've played a little bit with some programming language, like BASIC, you may want to skip this, but unless you're confident, I suggest you at least skim it. Even if you are confident, I get into some programming in-jokes and stuff, further on, that might help ease the shock of getting into the programming world.
 
@@ -1059,11 +1059,11 @@ If you're confident, go back to the top of the article.
 
 **Note:** _The following is focused on really basic stuff, but it still assumes the context is the moo programming language. For example, when I give a bit of code as example I'm not going to stop and point out the details that are particular to moocode and maybe don't work the same way in some other programming language. Sorry, but there's too much to explain here already :-)._
 
-#### A Program
+## A Program
 
 A program is a huge, complex list of step-by-step instructions that the computer carries out. These instructions are written in a particular combination of words and punctuation.
 
-#### A Short Example
+## A Short Example
 
 Okay, so let's give you a short example of what a bit of program might look like:
 
@@ -1092,7 +1092,7 @@ The first step the computer takes in converting the human-readable words to comp
 
 Almost nobody in the programming world talks about tokens, unless they're messing around with learning how programming langauges are built. It's really just a fancier word for "chunks", and the main reason I'm bringing it up is because it lets me say that when you get right down to it, the "instructions" are a series of tokens; and now I get to explain the different kinds of tokens without having to waffle about keywords versus punctuation and various silly crap like that. They're all just tokens.
 
-#### Identifiers: Keywords, Variables, Literals
+## Identifiers: Keywords, Variables, Literals
 
 Strings of letters like "somenumber", are _identifiers_.
 
@@ -1116,11 +1116,11 @@ A **literal** means that instead of having a variable that contains a value, you
 
 Programmer-speak for a bit of text is a _String_, as in "a string of letters", or really "a string of characters", since text can include number characters and punctuation characters, as well as letter characters. To put a literal String in a program, put quotes around it, "like this".
 
-#### Punctuation
+## Punctuation
 
 Most punctuation in the code is one of two things, either 1) operators or 2) start/end indicators for an expression, statement or block. See [Fun With Punctuation](#Source Code) for a little more detail.
 
-##### Operators
+### Operators
 
 An _operator_ is basically a bit of puncuation that **does something**, like the plus character + adds to values together, or the minus character - subtracts them.
 
@@ -1138,7 +1138,7 @@ Many programming languages have increment "++" and decrement "--", but moocode d
 
 In other programming languages, foo++ adds 1 to foo, foo-- subtracts one from foo. A lot of languages use this to make it more succinct to loop through a list, adding one at a time to the index (the number for which item of the list or array we want to use), but moocode doesn't need it as much because it has "for x in y".
 
-##### The Equals Sign `=`, Assignment and Comparison
+### The Equals Sign `=`, Assignment and Comparison
 
 The equals sign is used for _assignment_, meaning, storing a value into a variable. If you see:
 
@@ -1158,7 +1158,7 @@ You can also assign one variable to another, which means that the value in the s
 
 **Note**: A lot of programming languages require you to be very formal about defining variables ahead of time, "initializing" them (assigning the initial value), etc. Moocode is all hippy and free love, so you can pretty much create a new variable whenever you want, simply by assigning a value to a variable name. There's a downside to this; if you try to assign a different value to an existing variable but mistype the variable name, moo will happily create the new variable and let things keep rolling on... and you'll have no idea WTF happened when the wrong value causes problems somewhere entirely else in your code.
 
-#### Equals Signs, Assignment and Comparison, or Stupid Programmer Mistakes
+## Equals Signs, Assignment and Comparison, or Stupid Programmer Mistakes
 
 Using a single equals sign for assignment is a very firmly established tradition in programming. This is sort of unfortunate, because it leads to one of the most common, and most frustrating typos in the programming world, which is "confusing assignment (=) with comparison (==)".
 
@@ -1180,23 +1180,23 @@ One really good rule of thumb that I picked up somewhere is "literal on the left
 
 This is good because it forces you to think in a slightly different way about it, and because the compiler will yell if you slip and write `5 = a`.
 
-#### Syntax
+## Syntax
 
 There are rules about how tokens can be used and how they can go together. These rules are called _syntax_. As you start to program, you'll be hearing about syntax a lot, mainly because a lot of the more common mistakes beginners make are syntax errors, usually finicky typos that are just damned hard to remember, until they become ingrained by habit. Don't get frustrated, it's not you; even experienced programmers often (usually) make stupid typos in their first draft of a piece of code.
 
-##### Expressions
+### Expressions
 
 An _expression_ is the smallest piece of code that can be treated like a value. So a variable is an expression. So is a literal. An operation, like `1 + 1` is an expression. So is `somenumber + anothernumber`. I guess you could say, as a rule of thumb, that anything that you could take out and replace with a literal value, is an expression.
 
 Another way to say that is, "anything that returns a value". "Returns a value" is programmer-speak for "results in a value being sent back". There's a `return` keyword that does this from a method (which is basically a grouping of code, also sometimes called procedures, subroutines, or functions). So a call to a method that returns a value is also an expression.
 
-##### Statements
+### Statements
 
 If an expression is a term, a _statement_ is a phrase. Since it's a phrase, not a sentence, you don't put a period at the end of it, you put a semi-colon `;` at the end of it.
 
 For example: `somenumber = 2 + 2 ;`
 
-#### Source Code and Fun With Punctuation
+## Source Code and Fun With Punctuation
 
 Most punctuation is a single character, so there's nothing complicated as to what separates different punctuation tokens. There are some two-character combinations and there are some matched sets. The matched sets are usually used for organizing things, to start and end sections:
 
@@ -1226,7 +1226,7 @@ Qouble-quotes like " usually have to be in a matched set. Pretty much no program
 
 Some programming languages have special meanings for the single-quote \' and back-tick \` characters. Moocode did not at first, but have since used them for catching errors, see the section "Catching Errors in Expressions" in the LambdaMOO Programmer's Tutorial.
 
-#### Multitasking
+## Multitasking
 
 When you get right down to it, computers can only do one thing at a time. They can just do them so fast it looks like they're doing several things at once. This is called "multitasking." Juggling is a popular metaphor for this, but I prefer the chess master metaphor.
 
@@ -1234,7 +1234,7 @@ The computer acts sort of like a brilliant chess player who can play against twe
 
 Moo uses a system called tasks and ticks to manage this. This is discussed in more detail up above.
 
-#### Source Code: Compiled and Interpreted Programs
+## Source Code: Compiled and Interpreted Programs
 
 The human-readable version of the program is called the _source code_. Why this is, you don't really need to know, nor do you really need to know what compiled or interpreted mean. But if you're interested, read on.
 
@@ -1248,13 +1248,13 @@ First of all, there's a lot of give and take in terms of whether a particular pr
 
 Second of all, there is seldom a one-for-one word-to-code translation. Most often, a short set of words converts into dozens or more machine codes. On top of that, many compilers and interpreters then rearrange commands to make it all run faster, while still doing exactly what you said to do.
 
-#### RTFM, "Use The Source, Luke", and "ask smart questions"
+## RTFM, "Use The Source, Luke", and "ask smart questions"
 
 As you learn and ask people for help, you'll hear two phrases very often, RTFM (Read The Fucking Manual) and "Use the Source, Luke" (sometimes abbreviated UTSL). A growing trend is the third phrase, ["learn how to ask smart questions"](http://www.catb.org/~esr/faqs/smart-questions.html), after an essay written by Eric S. Raymond about how to do just that.
 
 All of these boil down to "do your own homework before you ask me for help." Like reading this page. All of us have been there before, and it sucks, we'll spend tons of energy to **help** you figure out how to do it yourself, but we're not going to do it **for** you.
 
- #### Foo, Bar, Baz: Metasyntactic Variables and Stupid Programmer Jokes
+## Foo, Bar, Baz: Metasyntactic Variables and Stupid Programmer Jokes
 
 A lot of programmers use the words _foo_, _bar_, and _baz_ a lot in examples. This is so common that there's actually now a jargon phrase for it, the metasyntactic variables.
 
@@ -1266,11 +1266,11 @@ Why not use real words? Three reasons:
 *   Because you want your reader/listener to be concentrating on HOW you're doing whatever, not on WHAT you're doing it to.
 *   Because "foobar" is a stupid programmer joke of long-standing tradition.
 
-#### The End
+## The End
 
 That's the end of our little "the really real realest basics of programming" section, so you can go back to the top and read the regular tutorial.
 
-### Outline of Planned Revision
+# Outline of Planned Revision
 
 -   Basic MOOCode Gotchas
     -   Comments  
@@ -1296,6 +1296,7 @@ That's the end of our little "the really real realest basics of programming" sec
     -   Matching
     -   Feature Objects
     -   Core Classes
+    -   $help
     -   $room
     -   $player
     -   $exit
@@ -1308,5 +1309,7 @@ That's the end of our little "the really real realest basics of programming" sec
     -   max_object()
     -   $playerdb
     -   player.owned_objects
+
+# Original Source
 
 The source code for this file was taken from [Steve's website, darksleep.com/notablog/articles](http://www.darksleep.com/notablog/articles/LambdaMOO_Programming_Tutorial) and converted to markdown and is stored in this repository for posterity. It is not HTML5.
