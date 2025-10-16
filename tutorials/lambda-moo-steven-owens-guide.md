@@ -34,6 +34,7 @@ Also there are a variety of tutorials. I'm not trying to duplicate or replace th
 *   Core Classes
 *   Sight and Sound in MOOCode
 *   Location in MOOCode
+*   The MOO Help System
 
 **Note:** _See end for draft outline of planned revision_
 
@@ -1042,6 +1043,62 @@ What follows is pretty much the same process for most objects:
 *   the above verbs call player:tell()
 
 As it turns out, room:description() is not part of $room:look_self(). I'm not sure where that get added to look_self() (though the :description() verb is defined on the Root Class, #1).
+
+## The Moo Help System
+
+Moo has a help system.  The first two things to know about are:
+
+```
+help help
+help index
+```
+
+The ```help index``` command will list the available help indices.
+
+Then you can ```help foo-index``` to see the available entries on ```foo-index```.
+
+But mostly I'm bringing this up in case you want to get into adding your own help databases,
+in which case, start here:
+
+```
+help $generic_help
+```
+
+A quick overview of moo help from a programmer's point of view:
+
+```$help``` is the main help object, which is a child of ```$generic_help```.
+
+Look at ```help $generic_help``` for information on how to add your own help information to the help system.
+
+There's a convention that if you put string literal comments as the first lines in the verb source, the moo  treats that as help info.  As ```help help``` says:
+
+```
+help object:verbname   -- prints any documentation strings that are present
+                          at the beginning of the program for that verb.
+```
+
+You can also define a property, ```object.help_msg``` that contains a string or list of strings.
+
+You can also define a verb, ```object:help_msg()```, that returns a string or list of strings.
+
+In addition, you can create your own help index and, if you have sufficient perms, add it to the main help system.  For more information on this, read at ```help $generic_help```.
+
+I just did some poking about in the code, so I'll summarize what I just learned about how it works, which is:
+
+1. You enter something like "help foo".
+2. Your ```player:help()``` verb invokes ```$code_utils:help_db_list()``` to assemble a list of help objects by looking for a ```.help``` property on:
+    1. Your player object, i.e. ```player.help```.
+    2. Every ancestor of your player object.
+    3. If your location is a room, ```location.help```.
+    4. Every ancestor of your location.
+3. Each help property can contain either a single object or a list of objects.
+4. The objects can either:
+    1. Be a child of ```$generic_help```, or
+    2. Implement verbs for ```find_topics()```, ```get_topic()```, and ```dump_topic()``` that work they way they do on ```$generic_help```.
+5. Your ```player:help()``` verb passes the list of help objects and your arg string into ```$code_utils:help_db_search()```
+6. ```$code_utils:help_db_search()``` iterates through the list of help objects calling ```helpobject;find_topics(argstr)```.
+7. ```$code_utils:help_db_search()``` returns the list of hits.
+8. ```player:help() displays``` the results to you.
 
 ## The End of the MooCode Stuff
 
