@@ -1272,43 +1272,41 @@ That's the end of our little "the really real realest basics of programming" sec
 
 ### Outline of Planned Revision
 
-```
-*   Basic MOOCode Gotchas
-**   Comments  
-**   Variable Declaration and Scoping
-**   Lists
-**   Flow Control: for, if, while, suspend, fork
-**   Types, typeof(), toobj(), toint() or tonum(), tostr(), toliteral(), tofloat()
-*   MOOCode In The Large
-**   Object References (Object Numbers)
-**   Implicit Environment References: this, player, caller, callers()
-**   Verb Invocation, Property Access
-**   Perms and Args
-**   Help
-**   Parameter Passing
-**   Threading, Ticks and Tasks
-*   The MOOCoder's Toolbox
-**   @display, @args, @chmod
-**   Eval ;
-**   Eval Environment: ;player.eval_env="here=player.location;me=player;"
-**   Multi-Line Evals ;;
-*   The Framework
-**   Parsing
-**   Matching
-**   Feature Objects
-**   Core Classes
-**   $room
-**   $player
-**   $exit
-**   $thing
-**   $features
-**   $utils
-**   #0
-**   #-1
-*   Some "interesting" functions and properties
-**   max_object()
-**   $playerdb
-**   player.owned_objects
-```
+-   Basic MOOCode Gotchas
+    -   Comments  
+    -   Variable Declaration and Scoping
+    -   Lists
+    -   Flow Control: for, if, while, suspend, fork
+    -   Types, typeof(), toobj(), toint() or tonum(), tostr(), toliteral(), tofloat()
+-   MOOCode In The Large
+    -   Object References (Object Numbers)
+    -   Implicit Environment References: this, player, caller, callers()
+    -   Verb Invocation, Property Access
+    -   Perms and Args
+    -   Help
+    -   Parameter Passing
+    -   Threading, Ticks and Tasks
+-   The MOOCoder's Toolbox
+    -   @display, @args, @chmod
+    -   Eval ;
+    -   Eval Environment: ;player.eval_env="here=player.location;me=player;"
+    -   Multi-Line Evals ;;
+-   The Framework
+    -   Parsing
+    -   Matching
+    -   Feature Objects
+    -   Core Classes
+    -   $room
+    -   $player
+    -   $exit
+    -   $thing
+    -   $features
+    -   $utils
+    -   #0
+    -   #-1
+-   Some "interesting" functions and properties
+    -   max_object()
+    -   $playerdb
+    -   player.owned_objects
 
 The source code for this file was taken from [Steve's website, darksleep.com/notablog/articles](http://www.darksleep.com/notablog/articles/LambdaMOO_Programming_Tutorial) and converted to markdown and is stored in this repository for posterity. It is not HTML5.
