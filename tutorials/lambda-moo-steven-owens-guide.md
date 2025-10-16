@@ -1175,7 +1175,7 @@ Programmer-speak for a bit of text is a _String_, as in "a string of letters", o
 
 ## Punctuation
 
-Most punctuation in the code is one of two things, either 1) operators or 2) start/end indicators for an expression, statement or block. See [Fun With Punctuation](#Source Code) for a little more detail.
+Most punctuation in the code is one of two things, either 1) operators or 2) start/end indicators for an expression, statement or block. See [Source Code and Fun With Punctuation](#source-code-and-fun-with-punctuation) for a little more detail.
 
 ### Operators
 
