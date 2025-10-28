@@ -45,7 +45,7 @@ Also there are a variety of tutorials. I'm not trying to duplicate or replace th
     1. [Parser-related Context Variables](#parser-related-context-variables)
         1. [this none this and @chmod +x](#this-none-this-and-@chmod-+x)
 1. [Renaming Verbs and Properties](#renaming-verbs-and-properties)
-    1. [Flow Control: if, for, while, suspend, fork](#flow-control:-if-for-while-suspend-fork)
+    1. [Flow Control: if, for, while, suspend, fork](#flow-control-if-for-while-suspend-fork)
         1. [tests](#tests)
         1. [for loop](#for-loop)
 1. [suspend](#suspend)
