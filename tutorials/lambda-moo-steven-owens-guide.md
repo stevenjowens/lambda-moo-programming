@@ -22,10 +22,10 @@ Also there are a variety of tutorials. I'm not trying to duplicate or replace th
     1. [TinyMUD](#tinymud)
     1. [MOO](#moo)
     1. [LambdaMOO](#lambdamoo)
-        1. [Servers and DBs and Cores](#servers-and-dbs-and-cores)
-        1. [LambdaRPG](#lambdarpg)
+1. [Servers and DBs and Cores](#servers-and-dbs-and-cores)
+1. [LambdaRPG](#lambdarpg)
 1. [Basic Terminology](#basic-terminology)
-        1. [Objects, Verbs and Properties](#objects-verbs-and-properties)
+    1. [Objects, Verbs and Properties](#objects-verbs-and-properties)
         1. [Object Oriented](#object-oriented)
     1. [The Server and the Db](#the-server-and-the-db)
         1. [Built-in Functions, Utils and the System Object](#built-in-functions-utils-and-the-system-object)
@@ -183,7 +183,7 @@ Most people refer to the underlying server of LambdaMOO as simply
 
 Ghondarl's original MOO is pretty much nonexistent at this point.
 
-#### Servers and DBs and Cores
+## Servers and DBs and Cores
 
 There's the MOO server code, and there's the database of in-MOO
 created code, referred to as the "db".
@@ -212,7 +212,7 @@ Everything in MOO is an object.  Objects can have data attached to
 them, stored in "properties", and code attached to them, stored in
 "verbs".
 
-#### LambdaRPG
+## LambdaRPG
 
 MOO has no built in RPG mechanics, but you can easily build one in MOO
 code.
