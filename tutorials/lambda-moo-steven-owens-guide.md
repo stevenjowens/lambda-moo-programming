@@ -244,7 +244,7 @@ MOO stands for "Mud, Object-Oriented". If you don't understand what "object orie
 
 MOO's object-oriented approach is slightly different from many object-oriented programming languages. In most object-oriented languages, you have a division between the definition of an object (its blueprint, so to speak) and instances of the object in the system. The object definitions (called classes) exist off in some abstract place that the rest of the code generally can't get at, your code in the system never deals with them directly. Instead your code creates "instances" of a given class and use the instance.
 
-In the MOO world, unlike in those other languages, the object is defined by example. You create an object instance in the system and then dynamically (aka "on the fly") add verbs and properties to your object instance to make your prototype. Then you can create a new object that is "descended" from the first object. The new object in turn can be dynamically modified with more verbs and properties, and then you can create more objects that descend from the second object.
+In the MOO world, unlike in those other languages, the object is defined by example. You create an object instance in the system and then dynamically (aka "on the fly") add verbs (using the @verb command) and properties (using the @property command) to your object instance to make your prototype. Then you can create a new object that is "descended" from the first object. The new object in turn can be dynamically modified with more verbs and properties, and then you can create more objects that descend from the second object.
 
 Another way that MOO is fairly unusual is that every object in the moo server's db has a number associated with it, often abbreviated "objnum" in moocode.  For example, #1449 is the object number of my player object at LambdaMOO.  There's more on object numbers below, I'm mainly bringing them up here for two reasons.  First, because if you already know some other programming language, object numbers may strike you as a bit weird.  Second, because if you don't already know how to program, there's a strong temptation to put the actual object number value in your code.  
 
@@ -537,6 +537,40 @@ bar = foo[2..length(foo)] ;
 
 You'll also want to take a close look at the $list_utils functions ("help $list_utils").
 
+## Object Verb and Property Basics
+
+In the MOO world you have objects, which have verbs and properties. 
+
+A verb is a method, function, subroutine, whatever. It's invoked on an object using the ":", like so:
+
+```object:verb(argument) ```
+
+A property is a slot on the object where you can store data, any kind of data, whether it's a string, a number, a list, or an object number.
+
+I don't want to duplicate the MOO Programmer's Manual, so go look these up there, for more details, but the basic commands for verbs and properties are:
+
+```
+@verb object:verbname this none this
+@rmverb object:verbname
+@rmverb# object:int
+
+@args object:verbname any any any
+@chmod object:verbname +r
+
+@rename object:verbname to newverbname
+@rename object:verbname to oldverbname newverbname
+
+@property object.propertyname
+@rmproperty object.propertyname
+
+@rename object.propertyname to newpropertyname
+@chmod object.propertyname -r
+```
+
+Note the ```this none this``` in the ```@verb``` example.  For that, and for the ```@chmod``` command, see "Perms and Args" below, and also read the MOO Programmer's Guide.
+
+There are some gotchas to ```@rename```, see the section below, "Renaming Verbs and Properties".
+
 ### Eval
 
 Eval is a really, really handy command that basically allows you to write little one-line MOOCode programs and execute them. It works just the same as say or emote, e.g.
@@ -612,10 +646,6 @@ Of course, note that you need a semi-colon to terminate the line, and of course 
 
 ## Variable Declaration and Scoping
 
-In the MOO world you have objects, which have verbs and properties. A verb is a method, function, subroutine, whatever. It's invoked on an object using the ":", like so:
-
-```object:verb(argument) ```
-
 Objects, and data stored in properties on objects are the only persistent things in the moo world.
 
 Within a verb, variables are dynamically declared, and exist only within the scope of the verb. If you call out to another verb and include parameters in that call, the value is passed, not the original variable (i.e. all verb arguments are pass-by-value). The second verb can modify the parameter value all it wants, but the original variable, in the first verb, will remain unchanged.
@@ -668,7 +698,7 @@ Command-line arguments consist of the verb name followed by three args elements,
 - verbname none none none
 - verbname any any any
 
-And so forth.
+And so forth.SCram
 
 The "foo preposition bar" form gets automatically parsed by the MOO's command-line parser; it finds the verb name and argument structure that best matches, and invokes it.
 
@@ -751,11 +781,211 @@ Generally speaking, if your verb doesn't have its args set to "this none this", 
 
 In addition, such not-to-be-directly-invoked verbs must be @chmodded to +x, to allow them to be invoked. If they're not +x, the moo will report a rather confusing "verb not found" error.
 
+If you use the ```@verb``` command with ```this none this``` args, it sets the ```x``` perm to turned on.
+
 ```
 @chmod +x box:put_helper_verb
 ```
 
 The reason for this is that not-to-be-directly-invoked verbs are expected (in well-designed code) to do the heavy lifting, the important and tricky stuff, and Pavel (or possibly Ghond) wanted to avoid having lots of half-done code be invocable by anybody.
+
+## Renaming Verbs and Properties
+
+Remember the verb and property commands above, in the section "Object Verb and Property Basics".
+
+There's a minor gotcha to know about with ```@verb``` and ```@rmverb``` when it comes to duplicate verb names or duplicate property names.
+
+The ```@property``` command will refuse to create two properties with the same name:
+
+```
+>@create $thing named testthing
+You now have testthing with object number #13133 and parent generic thing (#5).
+>@property testthing.test 777
+Property added with value 777.
+>@property testthing.test 778
+Property #13133.test already exists.
+>@rmproperty testthing.test
+Property removed.
+```
+
+However, the ```@verb``` command will happily let you create two verbs with the same name, though it will at least warn you -- after the fact:
+
+```
+>@verb testthing:test this none this
+Verb added (1).
+>@verb testthing:test none none none
+Warning:  Verb `test' already defined on that object.
+Verb added (2).
+>@display test:
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:test                     Puff (#1449)         r d    none none none
+-------------------------------- finished ---------------------------------
+```
+
+That's at least slightly better than ```@rename```, which won't even warn you.
+
+```
+>@verb testthing:test this none this
+Verb added (1).
+>@verb testthing:foo none none none
+Verb added (2).
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:foo                      Puff (#1449)         r d    none none none
+.bar                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+>@rename testthing:foo to test
+Verb name changed.
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:test                     Puff (#1449)         r d    none none none
+.bar                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+```
+
+Note that different args don't change anything when it comes to two verbs with the same name.  The args still have all the other implications, just that they don't matter for verb name matching.  In these examples I'm using two different sets of args, ```this none this``` and ```none one none```, so it's easy to see which verb is which.  
+
+Also note that the ```this none this``` verb has the ```x``` bit turned on, while the ```none none none``` verb does not.  As said above in the section "this none this and @chmod +x", the ```this none this``` args mean it's supposed to be verb that is called from other verbs, not from the parser.  It needs to have the ```x``` bit turned on to be called from another verb, so the ```@verb``` command helpfully does that for you.
+
+If you accidentally end up with two same-named verbs, you have a few options.  
+
+The ```@rename object:verbname to newverbname``` command will affect the first matching verb in the list, so you can rename the first verb to something unique and then use ```@rmverb``` like usual on the second verb.
+
+The ```@rmverb object:verbname``` command will affect the last matching verb, so you can simply ```@rmverb object:verbname``` and that will remove the second verb.
+
+The ```@rmverb# object:int``` command enables you to remove verbs by their order in the list of verbs on the object.  Remember, lists in lambdamoo are one-indexed.
+
+Let's try ```@rename```:
+
+```
+>@rename testthing:test to testfoo                                                                                                                                       
+Verb name changed.                                                                                                                                                       
+>@display test:                                                                                                                                                          
+testthing (#13133) [ readable ]                                                                                                                                          
+  Child of generic thing (#5).                                                                                                                                           
+  Location Puff (#1449).                                                                                                                                                 
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST                                                                                                                          
+#13133:testfoo                  Puff (#1449)         rxd    this none this                                                                                               
+#13133:test                     Puff (#1449)         r d    none none none                                                                                               
+-------------------------------- finished ---------------------------------
+>@rename testthing:test to testbar
+Verb name changed.
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:testfoo                  Puff (#1449)         rxd    this none this
+#13133:testbar                  Puff (#1449)         r d    none none none
+.bar                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+>@rmverb testthing:testbar
+Verb #13133:testbar (2) {none none none} removed.
+```
+
+Note in that last message, it referred to ```testbar (2)```.  That ```(2)``` is because it's the second verb in the object's verb list.  That's the int value you would use with the ```@rmverb# object:int``` command.  Let's try that out. 
+
+```
+>@verb testthing:test this none this
+Verb added (1).
+>@verb testthing:test none none none
+Warning:  Verb `test' already defined on that object.
+Verb added (2).
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:test                     Puff (#1449)         r d    none none none
+.bar                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+```
+
+With an object with only two verbs it's easy to figure out the ```int``` param for ```@rmverb#``` but if you have a lot of verbs, it can be a pain. That's when the ```verbs(objectnum)``` function comes in handy:
+
+```
+>;verbs(#13133)
+=> {"test", "test"}
+[used 2 ticks, 0 seconds.]
+```
+
+Note that when we used the ```verbs()``` function we had to give it an object number, not the object string.  The ```@verb``` command runs via the moo parser, which does the necessary matching to figure out that "testthing" is ```#13133```, while running ```verbs()``` via eval means we have to figure out the object number ourselves.
+
+Okay, let's go ahead and try ```@rmverb# object:int``` now:
+
+```
+>@rmverb# testthing:2
+Verb #13133:test (2) {none none none} removed.
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+.bar                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+```
+
+Note that @rename works on properties, too, but unlike with verbs, you can't have a property with multiple names.  If you try, you'll just end up with a property with a space in the name, and that'll be impossible to reference:
+
+```
+>@rename testthing.bar to foo bar
+Property name changed.
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:test                     Puff (#1449)         r d    none none none
+.foo bar                 Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+>;#13133.foo
+#-1:Input to EVAL, line 3:  Property not found
+... called from built-in function eval()
+... called from #217:eval_cmd_string (this == #1449), line 19
+... called from #217:eval*-d (this == #1449), line 13
+(End of traceback)
+>;#13133."foo bar"
+Line 1:  syntax error
+1 error.
+>;#13133.(foo bar)
+Line 1:  syntax error
+1 error.
+>;#13133.'foo bar'
+Line 1:  syntax error
+1 error.
+```
+
+Fortunately, ```@rename``` can fix it:
+
+```
+>@rename testthing.foo bar to foo
+Property name changed.
+>@display testthing:.
+testthing (#13133) [ readable ]
+  Child of generic thing (#5).
+  Location Puff (#1449).
+  Size: 0 bytes at Wed Dec 31 19:00:00 1969 EST
+#13133:test                     Puff (#1449)         rxd    this none this
+#13133:test                     Puff (#1449)         r d    none none none
+.foo                     Puff (#1449)          r c    1
+-------------------------------- finished ---------------------------------
+```
+
 
 ### Flow Control: if, for, while, suspend, fork
 
