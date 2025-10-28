@@ -314,6 +314,7 @@ is really
 
 There are a great many such useful properties on \#0 besides the utils,
 but here are the utils defined on LambdaMOO's \#0 as of this writing:
+
   * \#0.building\_utils
   * \#0.byte\_quota\_utils
   * \#0.code\_utils
@@ -1217,20 +1218,20 @@ later.
 
 Moocode isn't friendly enough to auto-convert between types for you, most of the time. You have objects references, ints, strings, floats. Since it's MOO, by definition a lot of the time you're going to be dealing with other people's data.
 
-Use the typeof() function to see what type a particular parameter is.
+Use the ```typeof()``` function to see what type a particular parameter is.
 
-Use the toliteral() function to convert it to a string you can print out (especially useful for looking at hairy lists-of-lists).
+Use the ```toliteral()``` function to convert it to a string you can print out (especially useful for looking at hairy lists-of-lists).
 
-Use the various tofoo() functions to convert back and forth:
+Use the various ```tofoo()``` functions to convert back and forth:
 
-*   toobj() (converts a string like "#1449" into an objectnumber reference variable)
-*   toint() or tonum() (converts "1" to the value 1; originally ints were the only numerics in moo)
-*   tostr() (converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449")
-*   tofloat() (converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0)
-*   toliteral() (converts whatever value to a print-friendly value)
-*   typeof() (returns an int value corresponding to the type of the value you passed in)
+*   ```toobj()``` converts a string like "#1449" into an objectnumber reference variable
+*   ```toint()``` or ```tonum()``` converts "1" to the value 1; originally ints were the only numerics in moo
+*   ```tostr()``` converts the numeric value 1 to "1" or an objectnumber variable #1449 to "#1449"
+*   ```tofloat()``` converts the string "1.1" to the float value 1.1 or the int value 1 to the float value 1.0
+*   ```toliteral()``` converts whatever value to a print-friendly value
+*   ```typeof()``` returns an int value corresponding to the type of the value you passed in
 
-Note that typeof returns an int value, but there are several standard values that are defined in moocode. INT is 0, OBJ is 1, STR is 2, ERR is 3, etc. See "help typeof" for more info. You could just check to see if the return value is 0 or 1, etc, but it's a lot smarter to use those predefined variables. That way, when you look at a bunch of code you wrote in a drunken binge, you'll have some vague idea wtf you were intending to do.
+Note that ``````typeof()``` returns an int value, but there are several standard values that are defined in moocode. ```INT``` is 0, ```OBJ``` is 1, ```STR``` is 2, ```ERR``` is 3, etc. See "help typeof" for more info. You could just check to see if the return value is 0 or 1, etc, but it's a lot smarter to use those predefined variables. That way, when you look at a bunch of code you wrote in a drunken binge, you'll have some vague idea wtf you were intending to do.
 
 ### Tasks
 
@@ -1292,7 +1293,8 @@ Which lists:
 *   seconds_left()
 *   task_id()
 *   suspend()
-*   resume()
+*   resume()Extended description
+
 *   queue_info()
 *   queued_tasks()
 *   kill_task()
