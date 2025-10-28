@@ -702,7 +702,7 @@ Somewhat related to the topic, there're also several standard error or result co
 
 When the parser invokes the verbs, it pre-populates several special context variables that each verb starts with; argstr, dobjstr, iobjstr, and several others. Let's look at an example:
 
-You have an object named "box" with a "put" verb and the arguments "any in this", which defined by using the @verb command:
+You have an object named "box" with a "put" verb and the arguments "any in this", which was defined by using the @verb command:
 
 ```
 @verb box:put any in this
