@@ -43,15 +43,15 @@ Also there are a variety of tutorials. I'm not trying to duplicate or replace th
 1. [Perms and Args](#perms-and-args)
     1. [Context Variables](#context-variables)
     1. [Parser-related Context Variables](#parser-related-context-variables)
-        1. [this none this and @chmod +x](#this-none-this-and-@chmod-+x)
+        1. [this none this and @chmod +x](#this-none-this-and-@chmod-x)
 1. [Renaming Verbs and Properties](#renaming-verbs-and-properties)
-    1. [Flow Control: if, for, while, suspend, fork](#flow-control-if-for-while-suspend-fork)
-        1. [tests](#tests)
-        1. [for loop](#for-loop)
-1. [suspend](#suspend)
-1. [fork](#fork)
-    1. [Type Conversion](#type-conversion)
-    1. [Tasks](#tasks)
+1. [Flow Control: if, for, while, suspend, fork](#flow-control-if-for-while-suspend-fork)
+    1. [tests](#tests)
+    1. [for loop](#for-loop)
+    1. [suspend](#suspend)
+    1. [fork](#fork)
+1. [Type Conversion](#type-conversion)
+1. [Tasks](#tasks)
 1. [MOOCode In The Large](#moocode-in-the-large)
     1. [Threading, Ticks and Tasks](#threading-ticks-and-tasks)
 1. [Core Classes](#core-classes)
@@ -236,7 +236,7 @@ I'm going to assume you have a basic familiarity with programming concepts, but 
 
 I'm going to assume you have a basic familiarity with muds and with moo concepts, but just to be clear:
 
-#### Objects, Verbs and Properties
+### Objects, Verbs and Properties
 
 MOO is a mud that consists of objects.
 
@@ -261,7 +261,7 @@ For more info on the built-in properties see the LambdaMOO Programmers Manual, "
 
 [https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC6](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC6)
 
-#### Object Oriented
+### Object Oriented
 
 MOO stands for "Mud, Object-Oriented". If you don't understand what "object oriented" means, it's an approach for organizing the code and data in a system. I've added a brief description below.
 
@@ -285,7 +285,7 @@ You have the server and the database (colloquially "the db"). The server is the 
 
 **Note:** _Most people tend to associate the term "database" with a "relational database", and most relational database programs tend to keep most of their data in disk storage. The purely technical meaning of "database" is "an organized collection of information." LambdaMOO's database is not relational, it is an object database, and it is kept entirely in-memory. The only reason I'm pointing this out is to head off any chance of you confusing the moo database for a relational database._
 
-#### Built-in Functions, Utils and the System Object
+## Built-in Functions, Utils and the System Object
 
 The moo language has a number of predefined functions, which are generally referred to as functions or sometimes as "built-in functions" or "built-ins" for short.
 
@@ -341,7 +341,7 @@ There are also several verbs defined directly on \#0, but most of them
 are system related and are not particularly relevant to your average
 moo coder.
 
-#### The Root Class, Nothing and $nothing
+## The Root Class, Nothing and $nothing
 
 Object #1 is The Root Class. All objects are descended from Object #1.
 
@@ -357,7 +357,7 @@ For more information, see the LambdaMOO Programmer's manual section "MOO Value T
 
 [https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8](https://www.hayseed.net/MOO/manuals/ProgrammersManual.html#SEC8)
 
-### Verb Invocation and Property Access
+## Verb Invocation and Property Access
 
 In code you invoke verbs with the ":" operator.
 
@@ -379,7 +379,7 @@ Here's a more realistic example of that:
 
 ```name = player.location.name ;```
 
-### Case Insensitivity
+## Case Insensitivity
 
 Moo, unlike unix, linux, etc, doesn't care whether letters are upper case or lower case. This seems to be generally true for variable names, object names, verb names, etc. I guess Pavel (or Ghond before him) just didn't want to deal with an endless number of users getting their capitalization mixed up and screaming "This is broken!".
 
@@ -399,7 +399,7 @@ Moo, unlike unix, linux, etc, doesn't care whether letters are upper case or low
 >
 ```
 
-### Data Types
+## Data Types
 
 MOO has four data types:
 
@@ -594,7 +594,7 @@ Note the ```this none this``` in the ```@verb``` example.  For that, and for the
 
 There are some gotchas to ```@rename```, see the section below, "Renaming Verbs and Properties".
 
-### Eval
+## Eval
 
 Eval is a really, really handy command that basically allows you to write little one-line MOOCode programs and execute them. It works just the same as say or emote, e.g.
 
@@ -667,7 +667,7 @@ Of course, note that you need a semi-colon to terminate the line, and of course 
 
 ```"this is a MOOCode faux comment with some \"embedded quotes\" in it." ;```
 
-## Variable Declaration and Scoping
+### Variable Declaration and Scoping
 
 Objects, and data stored in properties on objects are the only persistent things in the moo world.
 
@@ -675,7 +675,7 @@ Within a verb, variables are dynamically declared, and exist only within the sco
 
 Note that although a verb call can pass an object, it's really passing an object reference by value. The second verb can't do anything to that object reference to change the object reference in the first verb. But the second verb _can_ use that reference to access verbs and properties on the object, thus changing the persistent object.
 
-### A Short Digression on Dynamically Typed Variables
+#### A Short Digression on Dynamically Typed Variables
 
 Moo code is dynamically typed. This means that you don't have to go through a lot of bureacracy to set up a variable, you can just throw a variable assignment in anywhere and presto! It's a variable.
 
@@ -695,7 +695,7 @@ And perl will try to Do Something Useful and assume that you really meant to con
 
 There are other towhatever() builtins, mainly tonum() which converts to a numeric value and toobj() which converts the value it's given to an object reference number. See "Type Conversion" below.
 
-## Perms and Args
+### Perms and Args
 
 You can see the existing verbs on your object using the @display command (I consider this command indispensable as an object browser).
 
@@ -812,7 +812,7 @@ If you use the ```@verb``` command with ```this none this``` args, it sets the `
 
 The reason for this is that not-to-be-directly-invoked verbs are expected (in well-designed code) to do the heavy lifting, the important and tricky stuff, and Pavel (or possibly Ghond) wanted to avoid having lots of half-done code be invocable by anybody.
 
-## Renaming Verbs and Properties
+### Renaming Verbs and Properties
 
 Remember the verb and property commands above, in the section "Object Verb and Property Basics".
 
@@ -1162,7 +1162,7 @@ Or even just a range...
 [used 3776 ticks, 0 seconds.]
 ```
 
-## suspend
+#### suspend
 
 Suspend is pretty straight-forward; it just pauses the execution for however many seconds.
 
@@ -1173,7 +1173,7 @@ boo!
 => 0
 ```
 
-## fork
+#### fork
 
 Fork takes a little more discussion. Fork fires off a separate task. In this example I used all of the optional arguments. The somenumber of seconds part delays the new task from starting until some number of seconds in the future. Meanwhile, the rest of the verb continues on without delay.
 
@@ -1380,7 +1380,7 @@ While these classes aren't the only important classes, they account for the fund
 
 
 
-### Overview
+## Overview
 
 There are help entries for $room ("help $room") and $exit ("help $exit") but not for $player and $thing. Here's a quick overview of all four.
 
@@ -1412,7 +1412,7 @@ Finally we have $thing, which provides the basic features you expect to find in 
 
 The two examples that come to mind are also probably the two most common cases as well as fundamental to that sense of there-ness that makes MOO work, which are: sight/sound and location.
 
-## Sight and Sound in MOOCode
+### Sight and Sound in MOOCode
 
 Sight/sound is pretty straight-forward. I lump them together because really, they're just lines of text that are being sent to the player's network connection.
 
@@ -1428,7 +1428,7 @@ player:tell(), at its simplest, relays lines to player:notify(). More complicate
 
 Okau, so now we know what happens to a line of text after it gets to the player. This is the mechanism that everything in the MOO uses to send text to your player object's network connection. When you look at the room, for example, the room's verbs in turn call player:tell() to feed you descriptions, a list of what's in the room, etc. This is a fairly common practice and is considered normal.
 
-## Location in MOOCode
+### Location in MOOCode
 
 Location in MOO is based on two special object properties: "object.location" and "object.contents". All objects in MOO have these two properties built into them. Every object always has a location value (always a single object number), and every object has a contents value (always a list, possibly empty). The server itself inherently keeps track of these, so every object can only have one location at a time, and will only (and can only) be in a single other object.contents list.
 
