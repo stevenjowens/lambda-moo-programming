@@ -116,8 +116,7 @@ impression at the time was that a lot of them were TinyMUD
 derivatives, TinyMUSH and TinyMUCK being two of the more popular
 flavors that I can think of, offhand.  TinyMUSH had a macro system and
 TinyMUCK was programmable via a Forth-like language (which is a bit of
-a niche type of programmign language.  LPMud still existed, and there
-was
+a niche type of programming language, a stack-based programming language).
 
 ### MOO
 
@@ -126,8 +125,7 @@ MOO, which stands for MUD, Object-Oriented.  "Object oriented" is term
 for a particular kind of programming language, I get a little bit into
 that further down.
 
-MOO had a limited programming language, perhaps more of a
-macro language.
+Initially MOO had a limited programming language, perhaps more of a macro language.
 
 I was an acquaintance of Ghond's, I logged into his MOO (retroactively
 named "AlphaMOO" by the MOO community) for an hour or two, while he
@@ -139,26 +137,26 @@ Early 1991, Pavel Curtis opened LambdaMOO.
 
 For LambdaMOO Pavel developed the moo coding language (unnamed but
 referred to generally as "moo code") into a significantly more
-powerful and sophisticated programming language than MOO.  White has
+powerful and sophisticated programming language than MOO.  Ghond/White has
 been quite clear that he credits Pavel with doing major work and
 considers LambdaMOO to be Pavel's baby.
 
 MOO and LambdaMOO's code are entirely unrelated to TinyMUD and
-similar, but it was philosophically descended from TInyMUD, in that it
+similar, but it was philosophically descended from TinyMUD, in that it
 emphasized the social aspect, and users being able to build "live" in
 the MOO, via in-MOO commands.
 
 LambdaMOO enables regular users to program in the MOO.  To do this,
 you need to have the MOO object that represents your player character
-be programmer enabled, this is done by setting a flag on your player
+be programmer enabled.  This is done by setting a flag on your player
 object; this flag is referred to as the "programmer bit", just an
 object property that is set to the value 1 to enable it.  LambdaMOO is
 profligate in handing out programmer bits.  Some MOOs are not.
 
 Most people refer to the underlying server of LambdaMOO as simply
-"MOO". Ghondarl's original MOO is pretty much nonexistent at this
-point.
+"MOO". 
 
+Ghondarl's original MOO is pretty much nonexistent at this point.
 
 #### Servers and DBs and Cores
 
