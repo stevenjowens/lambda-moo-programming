@@ -52,7 +52,7 @@ Bartle and Roy Trubshaw, back in the UK in the late 70s/very early
 
 MUD stood for "Multi User Dungeon" and it was a very hack & slash D&D
 sort of experience. Later, other people tried to make it sound more
-legitimate by redefining it as "Multi User DImension."
+legitimate by redefining it as "Multi User Dimension."
 
 ### AberMUD
 
