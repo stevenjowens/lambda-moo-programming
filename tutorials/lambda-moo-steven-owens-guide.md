@@ -113,7 +113,7 @@ prefix.
 
 Around about then, there was an explosion of different MUD types.  My
 impression at the time was that a lot of them were TinyMUD
-derivatives, TinyMUSh and TinyMUCK being two of the more popular
+derivatives, TinyMUSH and TinyMUCK being two of the more popular
 flavors that I can think of, offhand.  TinyMUSH had a macro system and
 TinyMUCK was programmable via a Forth-like language (which is a bit of
 a niche type of programmign language.  LPMud still existed, and there
